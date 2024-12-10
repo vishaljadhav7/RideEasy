@@ -64,11 +64,11 @@ userSchema.pre("save", async function (next){
   next();
 })
 
-userSchema.methods.isPasswordCorrect = async function (passwordFromUser) {
+userSchema.methods.verifyPassword = async function (passwordFromUser) {
   return await bcrypt.compare(passwordFromUser, this.password);
 };
 
-userSchema.methods.generateToken =  function (){
+userSchema.methods.generateAuthToken =  function (){
   const user = this;
 
   return jwt.sign(

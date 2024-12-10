@@ -22,7 +22,7 @@ const driverSchema = new mongoose.Schema({
            maxLength: 10,
        }
     },
-    email: {
+    emailId: {
         type: String,
         required: true,
         unique: true,
@@ -56,13 +56,13 @@ const driverSchema = new mongoose.Schema({
         enum: ['active', 'inactive'],
         default: 'inactive',
     },
-    vehicle: {
+    vehicleDetails: {
         color: {
             type: String,
             required: [true, 'Vehicle color is required'],
             minlength: [3, 'Vehicle color must be at least 3 characters long'],
         },
-        plate: {
+        plateNumber: {
             type: String,
             required: [true, 'Vehicle plate number is required'],
             minlength: [3, 'Vehicle plate must be at least 3 characters long'],
@@ -72,16 +72,16 @@ const driverSchema = new mongoose.Schema({
             required: [true, 'Vehicle capacity is required'],
             min: [1, 'Vehicle capacity must be at least 1'],
         },
-        vehicleType: {
+        type: {
             type: String,
             required: [true, 'Vehicle type is required'],
             enum: ['car', 'motorcycle', 'auto'],
         },
     },
     location: {
-        ltd: {
+        latitude: {
             type: Number,
-            required: [true, 'Latitude is required'],
+            // required: [true, 'Latitude is required'],
             validate: {
                 validator: function (v) {
                     return validator.isFloat(String(v), { min: -90, max: 90 });
@@ -89,9 +89,9 @@ const driverSchema = new mongoose.Schema({
                 message: 'Latitude must be between -90 and 90',
             },
         },
-        lng: {
+        longitude: {
             type: Number,
-            required: [true, 'Longitude is required'],
+            // required: [true, 'Longitude is required'],
             validate: {
                 validator: function (v) {
                     return validator.isFloat(String(v), { min: -180, max: 180 });
@@ -103,7 +103,7 @@ const driverSchema = new mongoose.Schema({
 });
 
 
-driverSchema.methods.generateToken =  function (){
+driverSchema.methods.generateAuthToken =  function (){
     const driver = this;
   
     return jwt.sign(
@@ -120,12 +120,14 @@ driverSchema.methods.generateToken =  function (){
   }
 
 
-driverSchema.methods.isPasswordCorrect = async function (passwordFromUser) {
+driverSchema.methods.verifyPassword = async function (passwordFromUser) {
+    console.log( await bcrypt.compare(passwordFromUser, this.password))
     return bcrypt.compare(passwordFromUser, this.password);
 };
 
 
 driverSchema.pre('save', async function (next) {
+    console.log("called")
     const user = this;
 
   if(!user.isModified("password")){

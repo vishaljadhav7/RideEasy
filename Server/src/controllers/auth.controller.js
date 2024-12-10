@@ -30,7 +30,7 @@ const signUpUser = async (req, res, next) => {
     })
   
      
-    const token = await user.generateToken() 
+    const token = await user.generateAuthToken() 
 
     const registeredUser = await User.findById(user._id).select("-password")
 
@@ -74,13 +74,13 @@ const signInUser = async (req, res) => {
             throw new ApiError(400, "Invalid Credentials");
         }
 
-        const isValidPassword = await user.isPasswordCorrect(password);
+        const isValidPassword = await user.verifyPassword(password);
 
         if(!isValidPassword){
             throw new ApiError(400, "Invalid Credentials");
         }
 
-        const token = await user.generateToken(); 
+        const token = await user.generateAuthToken(); 
 
         const loggedInUser = await User.findById(user._id).select("-password --refresToken");
 
