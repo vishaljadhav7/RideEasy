@@ -1,5 +1,5 @@
 const validateSignUpData =  require('../utils/validation')
-const ApiError = require('../utils/ApiError')
+const ApiError = require('../utils/ApiError') // standerdized API errors and response
 const ApiResponse = require('../utils/ApiResponse')
 const User = require('../models/user.model') 
 
