@@ -46,10 +46,7 @@ const userSchema = new mongoose.Schema({
     profilePic : {
         type: String,
         default : "https://plus.unsplash.com/premium_photo-1682023585957-f191203ab239"
-    },
-    refreshToken: {
-      type: String
-  }
+    }
 }, {timestamps : true});
 
 

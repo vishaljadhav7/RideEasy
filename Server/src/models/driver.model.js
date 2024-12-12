@@ -127,7 +127,6 @@ driverSchema.methods.verifyPassword = async function (passwordFromUser) {
 
 
 driverSchema.pre('save', async function (next) {
-    console.log("called")
     const user = this;
 
   if(!user.isModified("password")){
