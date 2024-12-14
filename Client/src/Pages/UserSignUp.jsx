@@ -13,6 +13,7 @@ const initialValues = {
 };
 
 const UserSignUp = () => {
+  const navigate = useNavigate()
    
   const [errorMessage, setErrorMessage] = useState('') 
   // const [isSubmit, toggleSubmit] = useState(false)
@@ -29,10 +30,13 @@ const UserSignUp = () => {
           { firstName, lastName, emailId, password },
           { withCredentials: true }
         );
-        console.log("res from user sign up ", res.data) 
+ 
+        // console.log("  2nd res from user sign up ", res.data.data) 
+
+
          
-        // dispatch(addUser(res.data.userInfo)) 
-        // return navigate("/profile");
+        // dispatch(addUser(res.data.data)) 
+        return navigate("/ride-home");
       } catch (err) {
         setErrorMessage(err?.response?.data || "Something went wrong");
       }

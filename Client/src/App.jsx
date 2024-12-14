@@ -7,6 +7,9 @@ import UserSignIn from './Pages/UserSignIn'
 import DriverSignUp from './Pages/DriverSignUp'
 import DriverSignIn from './Pages/DriverSignIn'
 import { RouterProvider } from 'react-router-dom'
+import RideHome from './Pages/RideHome'
+import DriverHome from './Pages/DriverHome'
+
 
 function App() {
 
@@ -39,15 +42,24 @@ function App() {
         {
           path : "access-page",
           element : <AccessPage/>
-        }
-      ]
-    }
+        },
+        {
+          path : "/drive-home",
+          element : <DriverHome/>
+        },
+        {
+          path : "/ride-home",
+          element : <RideHome/>
+        },
+      ],
+    },
+
   ])
 
   return (
     <>
       <div >
-    <RouterProvider router={Router}/>    
+       <RouterProvider router={Router}/>    
       </div>
     </>
   )

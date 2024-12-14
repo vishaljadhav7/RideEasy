@@ -4,7 +4,7 @@ import { driveSignUpSchema } from "../Schemas";
 import { BASE_URL } from "../constants";
 import { useFormik } from 'formik';
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 
 const initialValues = {
   firstName: "",
@@ -20,6 +20,7 @@ const initialValues = {
 
 const DriverSignUp = () => {
   const [errorMessage, setErrorMessage] = useState('') 
+  const navigate = useNavigate()
 
   const { values, handleSubmit, errors, touched, handleBlur, handleChange } = useFormik({
     initialValues,
@@ -46,10 +47,10 @@ const DriverSignUp = () => {
           captainData,
           { withCredentials: true }
         );
-        console.log("res from drver sign up ", res) 
+        // console.log("res from drver sign up ", res.data.data) 
          
-        // dispatch(addUser(res.data.userInfo)) 
-        // return navigate("/profile");
+        // dispatch(addUser(res.data.data)) 
+        return navigate("/drive-home");
       } catch (err) {
         setErrorMessage(err?.response?.data || "Something went wrong");
       }
