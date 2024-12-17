@@ -3,17 +3,18 @@ import { RiArrowDownWideLine } from "react-icons/ri";
 import {useGSAP} from '@gsap/react'
 import { useRef, useState } from "react";
 import gsap from 'gsap'
-import LocationExplorerPanel from "../Components/LocationExplorerPanel";
-import RideOptionsPanel from '../Components/RideOptionsPanel'
+import LocationExplorer from "../Components/LocationExplorerPanel";
+import RideOptions from '../Components/RideOptionsPanel'
 import ConfirmTrip from "../Components/ConfirmTrip";
 import DriverTracker from "../Components/DriverTracker";
 import AwaitingDriver from "../Components/AwaitingDriver";
+import Demo from "../Components/Demo";
 
 const RideHome = () => {
 
   const [locationInfo , setLocationInfo] = useState({})
   const [locationSearchPanel, toggleLocationSearchPanel] = useState(false)
-  const [rideOptionsPanel, toggleRideOptionsPanel] = useState(true)
+  const [rideOptionsPanel, toggleRideOptionsPanel] = useState(false)
   const [driverTrackingPanel, toggleDriverTrackingPanel] = useState(false)
   const [confirmTripPanel, toggleConfirmTripPanel] = useState(false)
   const [awaitingDriverPanel, toggleAwaitingDriverPanel] = useState(false)
@@ -104,9 +105,10 @@ useGSAP(function () {
   return (
      <div className="">
         <div className="md:flex">
-        <div className="h-screen w-[45%] bg-purple-400 hidden md:block">
+        <div className="h-screen w-[55%] hidden md:block">
+         <Demo/>
         </div>
-        <div className="md:w-[55%] bg-orange-400">
+        <div className="md:w-[45%]">
           <div className="w-full h-full md:flex justify-center items-center">
                <img src={TEMP_IMG}  className="h-screen md:h-[600px]  w-full md:w-[70%] md:object-cover md:border-white border-4"/>
           </div>
@@ -135,12 +137,13 @@ useGSAP(function () {
                 className='bg-black text-white px-4 py-2 rounded-lg mt-3 w-full'>
                 Find Trip
             </button>
-              </div>
+          </div>
+          
             <div ref={(ele) => (locationSearchPanelRef = ele)} className="bg-white h-0 opacity-0">
-             <LocationExplorerPanel/>
+             <LocationExplorer/>
             </div>  
             <div ref={(ele) => (rideOptionsPanelRef = ele)} className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10    pt-12'>
-             <RideOptionsPanel/>
+             <RideOptions/>
             </div>  
             <div ref={(ele) => (confirmTripPanelRef = ele)} className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12'>
               <ConfirmTrip />

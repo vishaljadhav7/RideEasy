@@ -1,10 +1,9 @@
 import { FaUser } from "react-icons/fa";
-import { RiArrowDownWideLine } from "react-icons/ri";
 
-const RideOptionsPanel = () => {
+
+const RideOptionsPanel = ({handleRideSubmission}) => {
   return (
-    <div>
-    <h5 className='p-1 text-center w-[90%] absolute top-0 ' ><RiArrowDownWideLine/></h5>
+    <div className="" onClick={handleRideSubmission}>
     <h3 className='text-2xl font-semibold mb-5'>Choose a Vehicle</h3>
     <div  className='flex border-2 active:border-black  mb-2 rounded-xl w-full p-3  items-center justify-around'>
         <img className='h-10' src="https://swyft.pl/wp-content/uploads/2023/05/how-many-people-can-a-uberx-take.jpg" alt="" />

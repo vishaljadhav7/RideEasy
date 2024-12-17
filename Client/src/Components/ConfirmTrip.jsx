@@ -1,10 +1,10 @@
 import { RiArrowDownWideLine } from "react-icons/ri";
 
 
-const ConfirmTrip = () => {
+const ConfirmTrip = ({handleConfirmTrip}) => {
     return (
         <div>
-            <h5 className='p-1 text-center w-[93%] absolute top-0' ><RiArrowDownWideLine/></h5>
+            {/* <h5 className='p-1 text-center w-[93%] absolute top-0' ><RiArrowDownWideLine/></h5> */}
             <h3 className='text-2xl font-semibold mb-5'>Confirm your Ride</h3>
 
             <div className='flex gap-2 justify-between flex-col items-center'>
@@ -32,7 +32,9 @@ const ConfirmTrip = () => {
                         </div>
                     </div>
                 </div>
-                <button className='w-full mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg'>Confirm</button>
+                <button 
+                onClick={handleConfirmTrip} 
+                className='w-full mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg'>Confirm</button>
             </div>
         </div>
     )

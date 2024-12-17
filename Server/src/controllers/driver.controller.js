@@ -45,6 +45,7 @@ const driverSignUp = async (req, res, next) => {
   }
 
 
+
    return res
           .status(200)
           .cookie("token", token, options)
@@ -87,6 +88,8 @@ const driverSignIn = async (req, res, next) => {
         httpOnly: true,
         secure: true
       }
+
+  
 
        return res
              .status(200)

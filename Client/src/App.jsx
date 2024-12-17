@@ -7,8 +7,13 @@ import UserSignIn from './Pages/UserSignIn'
 import DriverSignUp from './Pages/DriverSignUp'
 import DriverSignIn from './Pages/DriverSignIn'
 import { RouterProvider } from 'react-router-dom'
-import RideHome from './Pages/RideHome'
+// import RideHome from './Pages/RideHome'
 import DriverHome from './Pages/DriverHome'
+import { Provider } from 'react-redux'
+import appStore from './utils/store'
+import UserHome from './Pages/UserHome'
+import BookingRide from './Pages/BookingRide'
+import MonitoringDriver from './Pages/MonitoringDriver'
 
 
 function App() {
@@ -49,8 +54,16 @@ function App() {
         },
         {
           path : "/ride-home",
-          element : <RideHome/>
+          element : <UserHome/>
         },
+        {
+          path : "/ride-booking",
+          element : <BookingRide/>
+        },
+        {
+          path : "/monitor-driver",
+          element : <MonitoringDriver/>
+        }
       ],
     },
 
@@ -59,7 +72,9 @@ function App() {
   return (
     <>
       <div >
-       <RouterProvider router={Router}/>    
+        <Provider store={appStore}>          
+          <RouterProvider router={Router}/>    
+        </Provider> 
       </div>
     </>
   )

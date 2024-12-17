@@ -1,10 +1,13 @@
 import {  useState } from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import { driveSignUpSchema } from "../Schemas";
 import { BASE_URL } from "../constants";
 import { useFormik } from 'formik';
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useDispatch} from 'react-redux';
+import { addDriver } from "../utils/driverSlice";
+import { useEffect } from "react"
+
 
 const initialValues = {
   firstName: "",
@@ -21,6 +24,9 @@ const initialValues = {
 const DriverSignUp = () => {
   const [errorMessage, setErrorMessage] = useState('') 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [isSubmit, setIsSubmit] = useState(false) 
+
 
   const { values, handleSubmit, errors, touched, handleBlur, handleChange } = useFormik({
     initialValues,
@@ -47,9 +53,8 @@ const DriverSignUp = () => {
           captainData,
           { withCredentials: true }
         );
-        // console.log("res from drver sign up ", res.data.data) 
          
-        // dispatch(addUser(res.data.data)) 
+        dispatch(addDriver(res.data.data)) 
         return navigate("/drive-home");
       } catch (err) {
         setErrorMessage(err?.response?.data || "Something went wrong");
@@ -58,10 +63,15 @@ const DriverSignUp = () => {
   });
  
 
+  useEffect(()=> {
+    const canSubmit = Object.keys(values).every(field => Boolean(values[field]))
+    setIsSubmit(canSubmit) 
+  }, [values])
+
   return (
-    <div className="h-screen w-full md:flex">
+    <div className="pt-[9%] md:pt-0 h-screen w-full md:flex bg-orange-400 md:bg-white">
       {/* Left section with the form */}
-      <div className="h-full md:w-[40%] w-full flex items-center justify-center bg-orange-400">
+      <div className="h-full md:w-[40%] w-full flex items-center justify-center ">
         <form 
          className="w-[95%] md:w-[75%] bg-white h-[90%] overflow-y-scroll shadow-lg p-4 flex flex-col gap-4 rounded-lg"
      
@@ -224,6 +234,7 @@ const DriverSignUp = () => {
           <button
           onClick={handleSubmit}
           type="submit"
+          disabled={!isSubmit}
             className='bg-[#111] text-white font-semibold mb-1 rounded-lg px-4 py-2 w-full text-lg placeholder:text-base'
           >Sign Up</button>
         <p className='text-center'>Already have a account? <Link to={"/driver-signin"} className='text-blue-600'>Login here</Link></p>

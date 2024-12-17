@@ -89,6 +89,7 @@ const signInUser = async (req, res) => {
           secure: true
         }
 
+      
         res
         .status(200)
         .cookie("token", token, options)
@@ -96,7 +97,8 @@ const signInUser = async (req, res) => {
             new ApiResponse(
                 200,
                  {
-                   user : loggedInUser
+                   user : loggedInUser,
+                   token
                  },
                 "User logged In Successfully"
             )

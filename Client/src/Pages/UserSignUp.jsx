@@ -45,7 +45,7 @@ const UserSignUp = () => {
  
 
   return (
-    <div className="h-screen w-full md:flex">
+    <div className="h-screen w-full md:flex bg-orange-400 md:bg-white">
          <div className='h-full md:w-[40%] w-[100%] flex items-center justify-center'>
            <form className='w-[95%] md:w-[75%] bg-white h-auto shadow-lg p-4 flex flex-col gap-3 rounded-lg'>
            <h2 className="text-2xl font-semibold text-center">Sign Up</h2>
