@@ -1,23 +1,51 @@
-import { useEffect } from "react"
-import { useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+// import { useEffect } from "react"
+// import { useSelector } from "react-redux"
+// import { useNavigate } from "react-router-dom"
+import { TEMP_IMG } from "../constants"
+import DriverDetails from "../Components/DriverDetails"
+import RidePopUp from "../Components/RidePopUp"
 
 const DriverHome = () => {
-  const driverInfo = useSelector(store => store.driver)
-  const navigate = useNavigate()
 
-  useEffect(()=>{
-    if(!driverInfo){
-      navigate("/drive-signin")
-    }
-  }, [])
 
   return (
-    <div className="w-screen h-screen bg-fuchsia-300 flex justify-center items-center">
-        <div className="w-[50%] h-[50%] bg-slate-500 p-4 flex flex-col items-center justify-center gap-2 shadow-lg rounded-lg">
-            <img src={driverInfo?.profilePic} alt="" className="w-16 p-2 "/>
-            <h1>{driverInfo?.fullName?.firstName} {driverInfo?.fullName?.lastName}</h1>
+    <div className="md:flex">
+      <div className="h-screen md:w-[60%]  hidden md:block relative">
+         <h1 className="text-2xl absolute left-[28%] top-5 font-bold text-gray-400 translate-x-2/4">Welcome Captain!</h1>
+        <div className="w-full h-full flex flex-col justify-center items-center gap-5">
+          
+         <div className="w-[70%] bg-white px-6 py-4 rounded-lg shadow-lg">
+         <DriverDetails/>  
+         </div>
+         {/* <div className="w-[50%] min-h-24 ">
+            <h3 className="text-center mt-4 text-xl font-medium text-black">Recent Rides</h3>
+
+            <h5 className="text-center mt-3">No Rides Available!</h5>
+         </div> */}
+
+        <div className="absolute bg-white w-[50%] h-[70%] p-4 transition-all ease-in">
+          <RidePopUp/> 
+         </div>
+ 
+        </div> 
+
+      </div>
+
+      <div className="w-screen h-screen md:w-[40%] block ">
+        <div className="w-full h-full md:flex justify-center items-center">
+          <img
+            src={TEMP_IMG}
+            className="h-screen md:h-[600px] w-full md:w-[70%] md:object-cover md:border-white border-4"
+          />
         </div>
+    
+         <div className="h-2/5 p-6 w-full fixed bottom-0 bg-white visible md:hidden">
+         <DriverDetails/>  
+        </div>        
+        <div className="bg-white w-full p-2 fixed bottom-0 visible md:hidden">
+        <RidePopUp/> 
+        </div>
+      </div>
     </div>
   )
 }

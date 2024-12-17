@@ -45,6 +45,10 @@ const BookingRide = () => {
     navigate("/monitor-driver");
   };
 
+  const handleToggleConfirmTrip = () => {
+    setActivePanel("rideOptions");
+  }
+
   return (
     <div className="md:flex">
       <div className="w-[60%] md:flex h-screen hidden md:visible">
@@ -104,7 +108,7 @@ const BookingRide = () => {
           ref={confirmTripPanelRef}
           className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12 block md:hidden"
         >
-          <ConfirmTrip handleConfirmTrip={handleConfirmTrip} />
+          <ConfirmTrip handleConfirmTrip={handleConfirmTrip}  handleToggleConfirmTrip={handleToggleConfirmTrip}/>
         </div>
       </div>
     </div>

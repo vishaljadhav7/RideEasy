@@ -1,10 +1,13 @@
 import { RiArrowDownWideLine } from "react-icons/ri";
 
-
-const ConfirmTrip = ({handleConfirmTrip}) => {
+const ConfirmTrip = ({handleConfirmTrip, handleToggleConfirmTrip}) => {
     return (
         <div>
-            {/* <h5 className='p-1 text-center w-[93%] absolute top-0' ><RiArrowDownWideLine/></h5> */}
+            <h5 
+            onClick={()=>handleToggleConfirmTrip()} 
+            className='absolute  top-1 right-[50%] translate-x-2/4  block md:hidden p-1 text-center cursor-pointer text-3xl font-bold transition-transform duration-300 ease-in-out transform hover:scale-y-150 origin-center'>
+            <RiArrowDownWideLine />
+          </h5>
             <h3 className='text-2xl font-semibold mb-5'>Confirm your Ride</h3>
 
             <div className='flex gap-2 justify-between flex-col items-center'>

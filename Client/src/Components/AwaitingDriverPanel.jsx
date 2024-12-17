@@ -1,10 +1,11 @@
-
+import { RiArrowDownWideLine } from "react-icons/ri";
 
 const AwaitingDriverPanel = () => {
     return (
-        <div>
-          <h5 className='p-1 text-center absolute top-0' ><i className="text-3xl text-gray-200 ri-arrow-down-wide-line"></i></h5>
-    
+        <div className="relative">
+          {/* <h5 className='absolute -top-10 right-[50%] translate-x-2/4 block md:hidden p-1 text-center cursor-pointer text-3xl font-bold transition-transform duration-300 ease-in-out transform hover:scale-y-150 origin-center'>
+            <RiArrowDownWideLine />
+          </h5> */}
           <div className='flex items-center justify-between'>
             <img className='h-12' src="https://swyft.pl/wp-content/uploads/2023/05/how-many-people-can-a-uberx-take.jpg" alt="" />
             <div className='text-right'>
