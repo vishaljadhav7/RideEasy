@@ -10,8 +10,8 @@ const DriverSignIn = () => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [formData, setFormData] = useState({})
-  const [errorMessage, setErrorMessage] = useState('')
+  const [formData, setFormData] = useState({ emailId : null, password : null})
+  const [errorMessage, setErrorMessage] = useState(null)
   const [isSubmit, setIsSubmit] = useState(false) 
 
 
@@ -84,6 +84,8 @@ const DriverSignIn = () => {
               </p>
             </div>
           </div>
+
+         {errorMessage && <p className="text-red-500 mt-5 p-1">{errorMessage}</p>}
       </form>
     </div>
 

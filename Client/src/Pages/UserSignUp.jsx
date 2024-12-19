@@ -1,19 +1,24 @@
 import { useNavigate, Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import { BASE_URL } from '../constants';
 import { signUpSchema } from '../Schemas';
 import { useFormik } from 'formik';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import {addRide} from '../utils/rideSlice'
+
 
 const initialValues = {
-  firstName: "",
-  lastName: "",
-  emailId: "",
-  password: "",
+  firstName: '',
+  lastName: '',
+  emailId: '',
+  password: '',
 };
 
 const UserSignUp = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const [isSubmit, setIsSubmit] = useState(false) 
    
   const [errorMessage, setErrorMessage] = useState('') 
   // const [isSubmit, toggleSubmit] = useState(false)
@@ -32,10 +37,7 @@ const UserSignUp = () => {
         );
  
         // console.log("  2nd res from user sign up ", res.data.data) 
-
-
-         
-        // dispatch(addUser(res.data.data)) 
+        dispatch(addRide(res.data.data)) 
         return navigate("/ride-home");
       } catch (err) {
         setErrorMessage(err?.response?.data || "Something went wrong");
@@ -43,6 +45,12 @@ const UserSignUp = () => {
     },
   });
  
+   useEffect(()=>{
+   const canSubmit = Object.keys(values).every(field => Boolean(values[field]))
+   setIsSubmit(canSubmit)
+   }, [values])
+   
+
 
   return (
     <div className="h-screen w-full md:flex bg-orange-400 md:bg-white">
@@ -122,6 +130,7 @@ const UserSignUp = () => {
             <button 
             className="btn btn-primary md:w-[100px] bg-purple-300 px-3 py-2 rounded-lg" 
             type="submit"
+            disabled={!isSubmit}
             onClick={handleSubmit}
             // disabled={!isSubmit}
             >
