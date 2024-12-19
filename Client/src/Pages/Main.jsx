@@ -3,20 +3,22 @@ import {MAIN_URL} from '../constants'
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Footer from "../Components/Footer";
 
 const Main = () => {
-  const rideInfo = useSelector(store => store.ride)
-  const driverInfo = useSelector(store => store.driver)
-  const navigate = useNavigate()
+  // const rideInfo = useSelector(store => store.ride)
+  // const driverInfo = useSelector(store => store.driver)
+  // const navigate = useNavigate()
 
-   useEffect(()=>{
-    if(driverInfo){
-      navigate("/drive-home")
-    }else if(rideInfo){
-      navigate("/ride-home")
-    }
-   }, [])
+  //  useEffect(()=>{
+  //   if(driverInfo){
+  //     navigate("/drive-home")
+  //   }else if(rideInfo){
+  //     navigate("/ride-home")
+  //   }
+  //  }, [])
   return (
+  <>
     <div 
       className="flex-grow flex flex-col justify-center items-center text-center bg-cover bg-center px-4 py-10 min-h-screen"
       style={{ backgroundImage: `url(${MAIN_URL})`}}
@@ -35,6 +37,9 @@ const Main = () => {
      </Link>
       </div>
     </div>
+    <Footer/>
+  </>
+
   );
 };
 

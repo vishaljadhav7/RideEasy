@@ -4,9 +4,20 @@
 import { TEMP_IMG } from "../constants"
 import DriverDetails from "../Components/DriverDetails"
 import RidePopUp from "../Components/RidePopUp"
+import { useState } from "react"
+import ConfirmRidePopUp from "../Components/ConfirmRidePopUp"
+
 
 const DriverHome = () => {
 
+  const [showRidePopUp, setShowRidePopUp] = useState(true)
+
+
+const handleConfirmRide = () => {
+ 
+  setShowRidePopUp(false)
+}
+  
 
   return (
     <div className="md:flex">
@@ -23,10 +34,13 @@ const DriverHome = () => {
             <h5 className="text-center mt-3">No Rides Available!</h5>
          </div> */}
 
-        <div className="absolute bg-white w-[50%] h-[70%] p-4 transition-all ease-in">
-          <RidePopUp/> 
-         </div>
- 
+{  showRidePopUp  ? (<div className="absolute bg-white w-[50%] h-[70%] p-4 transition-all ease-in">
+          <RidePopUp handleConfirmRide={handleConfirmRide}/> 
+         </div>)
+            : 
+         (<div className="absolute bg-white w-[50%] h-[70%] p-4 transition-all ease-in">
+          <ConfirmRidePopUp/>
+         </div>) } 
         </div> 
 
       </div>
@@ -39,12 +53,15 @@ const DriverHome = () => {
           />
         </div>
     
-         <div className="h-2/5 p-6 w-full fixed bottom-0 bg-white visible md:hidden">
+        <div className="h-2/5 p-6 w-full fixed bottom-0 bg-white visible md:hidden">
          <DriverDetails/>  
         </div>        
-        <div className="bg-white w-full p-2 fixed bottom-0 visible md:hidden">
-        <RidePopUp/> 
-        </div>
+{showRidePopUp ? ( <div className="bg-white w-full p-2 fixed bottom-0 visible md:hidden">
+        <RidePopUp handleConfirmRide={handleConfirmRide}/>
+        </div>) :
+        (<div className="bg-white w-full p-2 fixed bottom-0 visible md:hidden">
+        <ConfirmRidePopUp/> 
+        </div>)}
       </div>
     </div>
   )

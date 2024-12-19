@@ -1,6 +1,6 @@
 import React from 'react'
 
-const RidePopUp = () => {
+const RidePopUp = ({handleConfirmRide}) => {
     return (
         <div className='bg-white '>
             <h5 className='p-1 text-center w-[93%] absolute top-0' ></h5>
@@ -37,7 +37,7 @@ const RidePopUp = () => {
                     </div>
                 </div>
                 <div className='mt-5 w-full '>
-                    <button className=' bg-green-600 w-full text-white font-semibold p-2 px-10 rounded-lg'>Accept</button>
+                    <button className=' bg-green-600 w-full text-white font-semibold p-2 px-10 rounded-lg' onClick={()=> handleConfirmRide()}>Accept</button>
 
                     <button  className='mt-2 w-full bg-gray-300 text-gray-700 font-semibold p-2 px-10 rounded-lg'>Ignore</button>
                 </div>

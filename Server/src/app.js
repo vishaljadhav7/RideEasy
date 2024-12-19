@@ -18,8 +18,13 @@ app.use(express.urlencoded({ extended: true }));
 
 const authRouter = require("./routes/auth.routes");
 const driverRouter = require("./routes/driver.routes")
+const mapsRouter = require('./routes/maps.routes');
+const rideRouter = require('./routes/ride.routes')
+
 
 app.use("/auth", authRouter);
 app.use("/auth", driverRouter);
+app.use('/map', mapsRouter);
+app.use('/ride', rideRouter)
 
 module.exports = app

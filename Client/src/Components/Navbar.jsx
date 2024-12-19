@@ -11,9 +11,11 @@ const Navbar = () => {
   return (
    <div className=''>
     <nav className="bg-white  border-b-2  shadow-xl w-full py-2 px-6 md:flex items-center justify-between hidden md:visible">
-      <div className="w-[80px]">
-        <img src={LOGO_URL} alt="Logo" className="w-full rounded-lg" />
-      </div>
+        <div className="mb-6 md:mb-0">
+          <h1 className="text-2xl font-bold text-yellow-400">
+            Ryde<span className="text-slate-500">Easy</span>
+          </h1>
+        </div>
        <Link to={"/"}>
        <button className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition duration-300">
         Home
@@ -21,9 +23,11 @@ const Navbar = () => {
        </Link>
     </nav>
      <div className="absolute w-screen px-8 pt-6 flex justify-between items-center visible md:hidden">
-       <div className="w-[70px] ">
-         <img src={LOGO_URL} />
-       </div>
+     <div className="mb-6 md:mb-0">
+          <h1 className="text-2xl font-bold text-black">
+            Ryde<span className="text-slate-500">Easy</span>
+          </h1>
+        </div>
       { user ?
         <RxHamburgerMenu  className="font-bold cursor-pointer hover:scale-y-90 transition-all"/> : 
         <Link to={"/"}>
