@@ -52,7 +52,7 @@ const UserSignIn = () => {
 
       <div className='h-full w-[60%]  md:flex flex-col items-center justify-center gap-4 hidden md:visible'> 
       <h1 className='text-4xl font-semibold'>Sign In as Ride</h1>
-      <p className='text-[16px] text-gray-500 w-[70%] '>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, modi! Voluptates beatae in suscipit, eos eveniet incidunt laudantium harum? Doloremque reiciendis voluptates unde iste dignissimos facilis aperiam aliquam cupiditate inventore.</p>
+      <p className='text-[16px] text-gray-500 w-[70%] '>Welcome Back! Your next ride is just a few clicks away. Log in to explore flexible ride options and travel on your terms. Let’s get moving!</p>
       </div>
     </div>
   )

@@ -14,7 +14,8 @@ import appStore from './utils/store'
 import UserHome from './Pages/UserHome'
 import BookingRide from './Pages/BookingRide'
 import MonitoringDriver from './Pages/MonitoringDriver'
-
+import DriverProtectedRoute from './Components/DriverProtectedRoute'
+import UserProtectedRoute from './Components/UserProtectedRoute'
 
 function App() {
 
@@ -50,19 +51,19 @@ function App() {
         },
         {
           path : "/drive-home",
-          element : <DriverHome/>
+          element : <DriverProtectedRoute> <DriverHome/> </DriverProtectedRoute>
         },
         {
           path : "/ride-home",
-          element : <UserHome/>
+          element : <UserProtectedRoute> <UserHome/> </UserProtectedRoute>
         },
         {
           path : "/ride-booking",
-          element : <BookingRide/>
+          element : <UserProtectedRoute> <BookingRide/> </UserProtectedRoute>
         },
         {
           path : "/monitor-driver",
-          element : <MonitoringDriver/>
+          element : <UserProtectedRoute><MonitoringDriver/></UserProtectedRoute>
         }
       ],
     },

@@ -89,7 +89,7 @@ const DriverSignIn = () => {
 
     <div className='h-full w-[60%]  md:flex flex-col items-center justify-center gap-4 hidden md:visible'> 
     <h1 className='text-4xl font-semibold'>Sign In as Driver</h1>
-    <p className='text-[16px] text-gray-500 w-[70%] '>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, modi! Voluptates beatae in suscipit, eos eveniet incidunt laudantium harum? Doloremque reiciendis voluptates unde iste dignissimos facilis aperiam aliquam cupiditate inventore.</p>
+    <p className='text-[16px] text-gray-500 w-[70%] '>Welcome back to the RideEasy Driver Portal! Manage your rides, earnings, and schedule with ease. Log in to keep your wheels moving</p>
     </div>
   </div>
   )

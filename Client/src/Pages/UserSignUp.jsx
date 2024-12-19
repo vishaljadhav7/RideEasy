@@ -141,7 +141,7 @@ const UserSignUp = () => {
          </div>
          <div className='h-full w-[60%]  md:flex flex-col items-center justify-center gap-4 hidden md:visible'>
             <h1 className='text-4xl font-semibold'>Sign Up as Ride</h1>
-            <p className='text-[16px] text-gray-500 w-[70%] '>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, modi! Voluptates beatae in suscipit, eos eveniet incidunt laudantium harum? Doloremque reiciendis voluptates unde iste dignissimos facilis aperiam aliquam cupiditate inventore.</p>
+            <p className='text-[16px] text-gray-500 w-[70%] '>Join RideEasy and experience travel made easy! Sign up now to unlock hassle-free rides, affordable fares, and the convenience you deserve. Your journey starts here!</p>
           </div> 
     </div>
   )

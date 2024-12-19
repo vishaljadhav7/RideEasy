@@ -246,7 +246,7 @@ const DriverSignUp = () => {
       <div className="h-full w-[60%] md:flex flex-col items-center justify-center gap-4 hidden ">
         <h1 className="text-4xl font-semibold text-black">Sign Up as Driver</h1>
         <p className="text-lg text-gray-400 w-[70%] text-center">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, modi! Voluptates beatae in suscipit, eos eveniet incidunt laudantium harum? Doloremque reiciendis voluptates unde iste dignissimos facilis aperiam aliquam cupiditate inventore.
+        Drive with RideEasy and earn on your schedule! Join a community of reliable drivers, enjoy flexible work hours, and take control of your earnings. Sign up today and hit the road with confidence.
         </p>
       </div>
     </div>
