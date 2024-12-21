@@ -44,12 +44,13 @@ const driverSignUp = async (req, res, next) => {
     secure: true
   }
 
-
+  const serverResponse = new ApiResponse(200, resgisteredDriver, "User registered Successfully")
+    serverResponse.token = token
 
    return res
           .status(200)
           .cookie("token", token, options)
-          .json(new ApiResponse(200, resgisteredDriver, "Sign Up Successfull")) 
+          .json(serverResponse) 
   } catch (error) {
     return res
            .status(400)
@@ -89,12 +90,13 @@ const driverSignIn = async (req, res, next) => {
         secure: true
       }
 
-  
+      const serverResponse = new ApiResponse(200, loggedInDriver , "User registered Successfully")
+      serverResponse.token = token
 
        return res
              .status(200)
              .cookie("token", token, options)
-             .json(new ApiResponse(200, loggedInDriver, "Sign In Successfull"))
+             .json(serverResponse)
        
     } catch (error) {
         return res
@@ -112,7 +114,7 @@ const driverSignOut = async (req, res, next) => {
      return res
      .status(200)
      .clearCookie("token", options)
-     .json(new ApiResponse(200, {}, "User logged Out"))
+     .json(new ApiResponse(200, {}, "Driver/Captian has logged Out"))
 }
 
 

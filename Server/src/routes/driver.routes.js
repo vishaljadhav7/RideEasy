@@ -2,6 +2,7 @@ const express  = require("express");
 const driverRouter = express.Router();
 const { body } = require("express-validator");
 const {driverSignUp, driverSignIn, driverSignOut} = require("../controllers/driver.controller")
+const {verifyDriver} = require('../middlewares/auth.middleware')
 
 driverRouter.post("/driver/signup",  
 [
@@ -23,6 +24,6 @@ driverRouter.post("/driver/signin",
 ],
 driverSignIn)
 
-driverRouter.post("/driver/signout", driverSignOut)
+driverRouter.post("/driver/signout",verifyDriver,driverSignOut)
 
 module.exports = driverRouter

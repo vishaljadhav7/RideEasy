@@ -4,12 +4,16 @@ import { TEMP_IMG } from "../constants";
 import { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { useSelector } from "react-redux";
 
 const MonitoringDriver = () => {
   const [activePanel, setActivePanel] = useState("lookingForDriver"); // Active panel: "lookingForDriver" or "awaitingDriver"
   const lookingForDriverPanelRef = useRef(null);
   const awaitingDriverPanelRef = useRef(null);
+  const {reservedRide} = useSelector(store => store.rideOrder)
 
+
+  console.log("resservedec ride ", reservedRide  )
   useGSAP(() => {
     console.log("Active Panel:", activePanel); // Debugging state changes
 

@@ -54,6 +54,8 @@ const DriverSignUp = () => {
           { withCredentials: true }
         );
          
+        localStorage.setItem('token', res.data.token)
+        // console.log("res.data.data from driver sign up", res.data.data, res.data.token) 
         dispatch(addDriver(res.data.data)) 
         return navigate("/drive-home");
       } catch (err) {
@@ -69,14 +71,14 @@ const DriverSignUp = () => {
   }, [values])
 
   return (
-    <div className="pt-[9%] md:pt-0 h-screen w-full md:flex bg-orange-400 md:bg-white">
+    <div className="h-screen w-full md:flex bg-gradient-to-br from-orange-100 to-orange-300 md:bg-white">
       {/* Left section with the form */}
-      <div className="h-full md:w-[40%] w-full flex items-center justify-center ">
+      <div className="h-full md:w-[40%] w-[100%] flex items-center justify-center bg-white shadow-md md:rounded-r-lg">
         <form 
-         className="w-[95%] md:w-[75%] bg-white h-[90%] overflow-y-scroll shadow-lg p-4 flex flex-col gap-4 rounded-lg"
+         className="w-[80%] md:w-[75%] bg-white h-auto shadow-lg p-6 flex flex-col gap-6 rounded-lg border border-gray-200"
      
          >
-          <h2 className="text-2xl font-semibold text-center">Sign Up</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-800">Driver Sign Up</h2>
 
           {/* Full Name Section */}
           <div className="space-y-1">
@@ -235,7 +237,11 @@ const DriverSignUp = () => {
           onClick={handleSubmit}
           type="submit"
           disabled={!isSubmit}
-            className='bg-[#111] text-white font-semibold mb-1 rounded-lg px-4 py-2 w-full text-lg placeholder:text-base'
+          className={`px-4 py-2 text-white rounded-md font-semibold ${
+            isSubmit
+              ? "bg-orange-500 hover:bg-orange-600"
+              : "bg-gray-300 cursor-not-allowed"
+          } transition-all duration-300`}
           >Sign Up</button>
         <p className='text-center'>Already have a account? <Link to={"/driver-signin"} className='text-blue-600'>Login here</Link></p>
         </form>
@@ -243,9 +249,9 @@ const DriverSignUp = () => {
       </div>
 
    
-      <div className="h-full w-[60%] md:flex flex-col items-center justify-center gap-4 hidden ">
-        <h1 className="text-4xl font-semibold text-black">Sign Up as Driver</h1>
-        <p className="text-lg text-gray-400 w-[70%] text-center">
+      <div className="h-full w-[60%] md:flex flex-col items-center justify-center gap-4 hidden md:visible bg-gradient-to-bl from-orange-100 to-orange-300 shadow-inner p-6 rounded-l-lg">
+        <h1 className="text-4xl font-bold text-gray-800">Sign Up as Driver</h1>
+        <p className="text-md text-gray-700 w-[70%] text-center leading-relaxed">
         Drive with RideEasy and earn on your schedule! Join a community of reliable drivers, enjoy flexible work hours, and take control of your earnings. Sign up today and hit the road with confidence.
         </p>
       </div>

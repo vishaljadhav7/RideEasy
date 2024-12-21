@@ -4,6 +4,7 @@ const ApiResponse = require('../utils/ApiResponse')
 const User = require('../models/user.model') 
 
 
+
 const signUpUser = async (req, res, next) => {
   try {
      // API level validations
@@ -43,13 +44,13 @@ const signUpUser = async (req, res, next) => {
         secure: true
       }
 
-
+    const serverResponse = new ApiResponse(200, registeredUser, "User registered Successfully")
+    serverResponse.token = token
+       
     return res
         .status(201)
         .cookie("token",token, options)
-        .json(
-        new ApiResponse(200, registeredUser, "User registered Successfully")
-    )
+        .json(serverResponse)
 
   } catch (error){ 
     return res
@@ -89,20 +90,14 @@ const signInUser = async (req, res) => {
           secure: true
         }
 
+
+        const serverResponse = new ApiResponse(200, loggedInUser, "User registered Successfully")
+        serverResponse.token = token           
       
         res
         .status(200)
         .cookie("token", token, options)
-        .json(
-            new ApiResponse(
-                200,
-                 {
-                   user : loggedInUser,
-                   token
-                 },
-                "User logged In Successfully"
-            )
-        )
+        .json(serverResponse)
 
     } catch (error) {
     
@@ -123,7 +118,7 @@ const signOutUser = async(req, res) => {
      return res
      .status(200)
      .clearCookie("token", options)
-     .json(new ApiResponse(200, {}, "User logged Out"))
+     .json(new ApiResponse(200, {}, "User/Ride has logged Out"))
 }
 
 

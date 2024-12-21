@@ -47,23 +47,25 @@ const getFare = async (pickup, destination) => {
 }
 
 const createNewRide = async ({
-    user, pickup, destination, vehicleType
+    userId, pickup, destination, vehicleType
 }) => {
 
-    if (!user || !pickup || !destination || !vehicleType) {
+    // console.log("  user, pickup, destination, vehicleType from seriveic ",   user, pickup, destination, vehicleType)
+    if (!userId || !pickup || !destination || !vehicleType) {
         throw new Error('All fields are required');
     }
 
     const fare = await getFare(pickup, destination);
 
-    const ride = rideModel.create({
-        user,
+    const ride = new Ride({
+        userId,
         pickup,
         destination,
         otp: getOtp(6),
         fare: fare[ vehicleType ]
-    })
+    }).populate("user");
 
+    // await ride.save()
     return ride;
 }
 

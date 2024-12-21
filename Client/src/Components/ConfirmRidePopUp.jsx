@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
+import { IoLocationOutline } from "react-icons/io5";
+import { IoLocation } from "react-icons/io5";
+import { GrCurrency } from "react-icons/gr";
+
+
 const ConfirmRidePopUp = (props) => {
     const [ otp, setOtp ] = useState('')
     const navigate = useNavigate()
@@ -22,21 +27,21 @@ const ConfirmRidePopUp = (props) => {
             <div className='flex gap-2 justify-between flex-col items-center'>
                 <div className='w-full mt-5'>
                     <div className='flex items-center gap-5 p-3 border-b-2'>
-                        <i className="ri-map-pin-user-fill"></i>
+                        <IoLocationOutline/>
                         <div>
                             <h3 className='text-lg font-medium'>562/11-A</h3>
                             <p className='text-sm -mt-1 text-gray-600'>swrwe asdasco asdasc</p>
                         </div>
                     </div>
                     <div className='flex items-center gap-5 p-3 border-b-2'>
-                        <i className="text-lg ri-map-pin-2-fill"></i>
+                        <IoLocation/>
                         <div>
                             <h3 className='text-lg font-medium'>562/11-A</h3>
                             <p className='text-sm -mt-1 text-gray-600'>aswdasc asdszdv dthf</p>
                         </div>
                     </div>
                     <div className='flex items-center gap-5 p-3'>
-                        <i className="ri-currency-line"></i>
+                        <GrCurrency/>
                         <div>
                             <h3 className='text-lg font-medium'>₹324 </h3>
                             <p className='text-sm -mt-1 text-gray-600'>Cash Cash</p>

@@ -13,13 +13,15 @@ const createRide = async (req, res) => {
         }
         const {pickup, destination, vehicleType } = req.body;
 
+        const userId = req?.user?._id.toString() 
         const newRide = await createNewRide({
-            userId : req.user._id,
+            userId,
             pickup,
             destination,
-            vehicleType
+            vehicleType,
         })
-        res.status(200).json(new ApiResponse(200, newRide, "ride created successfully") )
+
+       return res.status(200).json(new ApiResponse(200, newRide, "ride created successfully") )
     } catch (error) {
         res.status(400).json(400, error.message || "ride creation was unsuccessfull")
     }

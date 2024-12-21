@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import {MAIN_URL} from '../constants'
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+// import { useSelector } from "react-redux";
+// import { useNavigate } from "react-router-dom";
+// import { useEffect } from "react";
 import Footer from "../Components/Footer";
 
 const Main = () => {

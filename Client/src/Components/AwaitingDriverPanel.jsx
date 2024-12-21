@@ -1,6 +1,10 @@
 import { RiArrowDownWideLine } from "react-icons/ri";
+import { useSelector } from "react-redux";
 
 const AwaitingDriverPanel = () => {
+   const rideDetails = useSelector(store => store.rideOrder)
+   const reservedRide = rideDetails.reservedRide
+   console.log(reservedRide, rideDetails);
     return (
         <div className="relative">
           {/* <h5 className='absolute -top-10 right-[50%] translate-x-2/4 block md:hidden p-1 text-center cursor-pointer text-3xl font-bold transition-transform duration-300 ease-in-out transform hover:scale-y-150 origin-center'>
@@ -26,14 +30,14 @@ const AwaitingDriverPanel = () => {
                 </div>
               </div>
               <div className='flex items-center gap-5 p-3 border-b-2'>
-                <i className="text-lg ri-map-pin-2-fill"></i>
+                {/* <i className="text-lg ri-map-pin-2-fill"></i> */}
                 <div>
                   <h3 className='text-lg font-medium'>562/11-A</h3>
                   <p className='text-sm -mt-1 text-gray-600'> asd idcis lmdc;ds saca 3423 </p>
                 </div>
               </div>
               <div className='flex items-center gap-5 p-3'>
-                <i className="ri-currency-line"></i>
+                {/* <i className="ri-currency-line"></i> */}
                 <div>
                   <h3 className='text-lg font-medium'>₹ 657</h3>
                   <p className='text-sm -mt-1 text-gray-600'>Cash Cash</p>

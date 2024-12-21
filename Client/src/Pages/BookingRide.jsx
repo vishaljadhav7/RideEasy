@@ -1,15 +1,27 @@
 import RideOptionsPanel from '../Components/RideOptionsPanel';
 import ConfirmTrip from '../Components/ConfirmTrip';
 import { useNavigate } from 'react-router-dom';
-import { TEMP_IMG } from '../constants';
+import { BASE_URL, TEMP_IMG } from '../constants';
 import { useRef, useState, useEffect } from "react";
 import gsap from 'gsap';
+import { addReservedRide } from '../utils/rideOrderSlice';
+import axios from 'axios';
+import { useSelector , useDispatch} from 'react-redux';
 
 const BookingRide = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const [activePanel, setActivePanel] = useState("rideOptions"); // "rideOptions" or "confirmTrip"
   const rideOptionsPanelRef = useRef(null);
   const confirmTripPanelRef = useRef(null);
+  const {tripLocations} = useSelector(store => store.rideOrder)
+  const [fareAndVehicleType, setFareAndVehicleType] = useState({fareValue : '', vehicleType : ''}) 
+
+  const selectFareAndVehicle = (fee, vehicle ) => {
+    setFareAndVehicleType({fareValue : fee, vehicleType : vehicle}) 
+    setActivePanel("confirmTrip");
+  }
+  const {pickup, destination} = tripLocations
 
   useEffect(() => {
     if (activePanel === "rideOptions") {
@@ -37,13 +49,38 @@ const BookingRide = () => {
     }
   }, [activePanel]);
 
-  const handleRideSubmission = () => {
-    setActivePanel("confirmTrip");
-  };
 
-  const handleConfirmTrip = () => {
-    navigate("/monitor-driver");
+  const handleConfirmTrip = async () => {
+
+    try {
+      // API Call to Create Ride
+      const res = await axios.post(
+        `${BASE_URL}/ride/create-ride`, 
+        {
+          pickup,
+          destination,
+          vehicleType : fareAndVehicleType.vehicleType,
+          fare : fareAndVehicleType.fareValue  // Data goes in the body for POST
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`, // Headers at the same level as data
+          },
+        }
+      );
+  
+      if (res?.data?.data) {
+        dispatch(addReservedRide(res.data.data));
+        navigate("/monitor-driver");
+      } else {
+        console.error("No ride data returned");
+      }
+    } catch (error) {
+      console.error("Error creating ride:", error);
+      alert("Failed to confirm the trip. Please try again.");
+    }
   };
+  
 
   const handleToggleConfirmTrip = () => {
     setActivePanel("rideOptions");
@@ -75,7 +112,7 @@ const BookingRide = () => {
               activePanel === "rideOptions" ? "" : "hidden"
             }`}
           >
-            <RideOptionsPanel handleRideSubmission={handleRideSubmission} />
+            <RideOptionsPanel selectFareAndVehicle={selectFareAndVehicle} />
           </div>
           <div
             ref={confirmTripPanelRef}
@@ -83,7 +120,7 @@ const BookingRide = () => {
               activePanel === "confirmTrip" ? "" : "hidden"
             }`}
           >
-            <ConfirmTrip handleConfirmTrip={handleConfirmTrip} />
+            <ConfirmTrip handleConfirmTrip={handleConfirmTrip}  fareValue={fareAndVehicleType.fareValue}/>
           </div>
         </div>
       </div>
@@ -102,13 +139,13 @@ const BookingRide = () => {
           ref={rideOptionsPanelRef}
           className="absolute w-full z-10 bottom-0 bg-white px-3 py-10 pt-10 transform translate-y-0 block md:hidden"
         >
-          <RideOptionsPanel handleRideSubmission={handleRideSubmission} />
+          <RideOptionsPanel selectFareAndVehicle={selectFareAndVehicle}/>
         </div>
         <div
           ref={confirmTripPanelRef}
           className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12 block md:hidden"
         >
-          <ConfirmTrip handleConfirmTrip={handleConfirmTrip}  handleToggleConfirmTrip={handleToggleConfirmTrip}/>
+          <ConfirmTrip handleConfirmTrip={handleConfirmTrip}  handleToggleConfirmTrip={handleToggleConfirmTrip} fareValue={fareAndVehicleType.fareValue}/>
         </div>
       </div>
     </div>
