@@ -11,10 +11,10 @@ import { BASE_URL } from "../constants";
 import axios from 'axios';
 import { addFareAndTripLocations} from "../utils/rideOrderSlice";
 // import { updateCache } from "../utils/suggestionsSlice";
-
+import {useWebSocketContext} from '../Context/WebSocketContext'
 
 const UserHome = () => {
-  // const cache = useSelector((state) => state.suggestions.cache);
+  const ride = useSelector((state) => state.ride);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [pickup, setPickup] = useState('')
@@ -28,6 +28,8 @@ const UserHome = () => {
   const timerRef = useRef(null)
   const pickupControllerRef = useRef(null);
   const destinationControllerRef = useRef(null);
+
+  const {socket} = useWebSocketContext()
 
   const fetchSuggestions = async (querySearch = '', field, controller) => {
     if(!querySearch) return;
@@ -58,6 +60,27 @@ const UserHome = () => {
     }
   
   };
+  
+  const handleTripSubmit = async (e) => {
+    e.preventDefault();
+     if(!pickup && !destination) return;
+
+    const res = await axios.get(`${BASE_URL}/ride/get-fare`, {
+      params : {pickup , destination},
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
+    }) 
+
+    const details = {
+      fareDetails :res.data.data,
+      locationDetails : {pickup , destination}
+    }
+
+    dispatch(addFareAndTripLocations(details))
+    
+    navigate("/ride-booking")
+  }
 
   useEffect(()=> {
     if(pickup) {
@@ -98,29 +121,10 @@ const UserHome = () => {
    } 
    }, [destination])
 
-
-  const handleTripSubmit = async (e) => {
-    e.preventDefault();
-     if(!pickup && !destination) return;
-
-    const res = await axios.get(`${BASE_URL}/ride/get-fare`, {
-      params : {pickup , destination},
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-      },
-    }) 
-
-    const details = {
-      fareDetails :res.data.data,
-      locationDetails : {pickup , destination}
-    }
-
-    dispatch(addFareAndTripLocations(details))
-    
-    navigate("/ride-booking")
-  }
-
   
+   useEffect(() => {
+    socket.emit("join", { clientType: "ride", clientId: ride._id })
+   }, [ride, socket]);
 
   useGSAP(() => {
     if (locationSearchPanel) {

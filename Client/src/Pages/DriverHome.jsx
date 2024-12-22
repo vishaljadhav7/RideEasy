@@ -34,7 +34,7 @@ const handleConfirmRide = () => {
             <h5 className="text-center mt-3">No Rides Available!</h5>
          </div> */}
 
-{  showRidePopUp  ? (<div className="absolute bg-white w-[50%] h-[70%] p-4 transition-all ease-in">
+         {showRidePopUp ? (<div className="absolute bg-white w-[50%] h-[70%] p-4 transition-all ease-in">
           <RidePopUp handleConfirmRide={handleConfirmRide}/> 
          </div>)
             : 
@@ -56,7 +56,7 @@ const handleConfirmRide = () => {
         <div className="h-2/5 p-6 w-full fixed bottom-0 bg-white visible md:hidden">
          <DriverDetails/>  
         </div>        
-{showRidePopUp ? ( <div className="bg-white w-full p-2 fixed bottom-0 visible md:hidden">
+       {showRidePopUp ? ( <div className="bg-white w-full p-2 fixed bottom-0 visible md:hidden">
         <RidePopUp handleConfirmRide={handleConfirmRide}/>
         </div>) :
         (<div className="bg-white w-full p-2 fixed bottom-0 visible md:hidden">

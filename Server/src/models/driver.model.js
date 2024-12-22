@@ -81,7 +81,6 @@ const driverSchema = new mongoose.Schema({
     location: {
         latitude: {
             type: Number,
-            // required: [true, 'Latitude is required'],
             validate: {
                 validator: function (v) {
                     return validator.isFloat(String(v), { min: -90, max: 90 });
@@ -91,7 +90,6 @@ const driverSchema = new mongoose.Schema({
         },
         longitude: {
             type: Number,
-            // required: [true, 'Longitude is required'],
             validate: {
                 validator: function (v) {
                     return validator.isFloat(String(v), { min: -180, max: 180 });
