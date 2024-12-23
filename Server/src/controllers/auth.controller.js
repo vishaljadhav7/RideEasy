@@ -83,7 +83,7 @@ const signInUser = async (req, res) => {
 
         const token = await user.generateAuthToken(); 
 
-        const loggedInUser = await User.findById(user._id).select("-password --refresToken");
+        const loggedInUser = await User.findById(user._id).select("-password");
 
         const options = {
           httpOnly: true,
