@@ -1,4 +1,3 @@
-
 const express = require("express");
 const app = express();
 const cookieParser = require('cookie-parser');
@@ -7,7 +6,8 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "*" , // ["http://localhost:5173", "https://wfvk7zgv-5173.inc1.devtunnels.ms/"],
+    methods: [ 'GET', 'POST' ],
     credentials: true, 
   })
 );
@@ -25,6 +25,6 @@ const rideRouter = require('./routes/ride.routes')
 app.use("/auth", authRouter);
 app.use("/auth", driverRouter);
 app.use('/map', mapsRouter);
-app.use('/ride', rideRouter)
+app.use('/ride', rideRouter);
 
-module.exports = app
+module.exports = app;

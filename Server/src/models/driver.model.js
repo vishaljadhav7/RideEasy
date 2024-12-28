@@ -119,7 +119,6 @@ driverSchema.methods.generateAuthToken =  function (){
 
 
 driverSchema.methods.verifyPassword = async function (passwordFromUser) {
-    console.log( await bcrypt.compare(passwordFromUser, this.password))
     return bcrypt.compare(passwordFromUser, this.password);
 };
 

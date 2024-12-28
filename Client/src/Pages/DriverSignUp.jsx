@@ -50,8 +50,7 @@ const DriverSignUp = () => {
       try {
         const res = await axios.post(
           BASE_URL + "/auth/driver/signup",
-          captainData,
-          { withCredentials: true }
+          captainData
         );
          
         localStorage.setItem('token', res.data.token)
@@ -75,7 +74,7 @@ const DriverSignUp = () => {
       {/* Left section with the form */}
       <div className="h-full md:w-[40%] w-[100%] flex items-center justify-center bg-white shadow-md md:rounded-r-lg">
         <form 
-         className="w-[80%] md:w-[75%] bg-white h-auto shadow-lg p-6 flex flex-col gap-6 rounded-lg border border-gray-200"
+         className="w-[80%] md:w-[75%] bg-white h-[90%] shadow-lg p-6 flex flex-col gap-6 rounded-lg border border-gray-200 overflow-y-scroll"
      
          >
           <h2 className="text-3xl font-bold text-center text-gray-800">Driver Sign Up</h2>

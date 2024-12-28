@@ -1,6 +1,8 @@
 const Ride = require('../models/ride.model');
 const crypto = require('crypto');
 const { fetchAddressCoordinates, fetchDistanceAndTime, fetchSuggestions} = require('../services/maps.service');
+// const ApiError = require('../utils/ApiError');
+// const Driver = require('../models/driver.model');
 
 const getOtp = (num) => {
     function generateOtp(num) {
@@ -9,7 +11,6 @@ const getOtp = (num) => {
     }
     return generateOtp(num);
 }
-
 
 const getFare = async (pickup, destination) => {
     
@@ -49,26 +50,112 @@ const getFare = async (pickup, destination) => {
 const createNewRide = async ({
     userId, pickup, destination, vehicleType
 }) => {
+  console.log("invoked createNewride service")
 
-    // console.log("  user, pickup, destination, vehicleType from seriveic ",   user, pickup, destination, vehicleType)
     if (!userId || !pickup || !destination || !vehicleType) {
         throw new Error('All fields are required');
     }
 
     const fare = await getFare(pickup, destination);
 
-    const ride = new Ride({
-        userId,
+   console.log("got fare values " , fare)
+
+    const ride = await Ride.create({
+        user : userId,
         pickup,
         destination,
         otp: getOtp(6),
         fare: fare[ vehicleType ]
-    }).populate("user");
+    })
 
-    // await ride.save()
+    return ride;
+}
+
+const updateRideStatusWithConfirm = async ({rideId, driver}) => {
+    
+    if (!rideId) {
+        throw new Error('Ride id is required');
+    };
+
+    await Ride.findOneAndUpdate({
+      _id : rideId
+    }, 
+    {
+      status : 'accepted', driver : driver.id
+    });
+
+    const bookedRide = await Ride.findOne({
+        _id : rideId
+    }).populate('user', "-password").populate('driver',"-password").select('+otp');
+
+    console.log("updateRideStatusWithConfirm -> accecpted  ",  bookedRide.status)
+     
+
+    if (!bookedRide) {
+        throw new Error('Ride not found');
+    }
+    
+    return bookedRide;
+}
+
+const updateRideStatusWithAccepted = async ({ rideId, otp, driver }) => {
+    if (!rideId || !otp) {
+        throw new Error('Ride id and OTP are required');
+    }
+
+    const ride = await Ride.findOne({
+        _id: rideId
+    }).populate('user').populate('driver').select('+otp');
+
+    console.log("updateRideStatusWithAccepted -> will set to ongoing ", ride.status);
+
+    if (!ride) {
+        throw new Error('Ride not found');
+    }
+
+    if (ride.status !== 'accepted') {
+        throw new Error('Ride not accepted');
+    }
+
+    if (ride.otp !== otp) {
+        throw new Error('Invalid OTP');
+    }
+
+    await Ride.findOneAndUpdate({
+        _id: rideId
+    }, {
+        status: 'ongoing'
+    });
+
+    return ride;
+}
+
+const updateRideStatusWithCompleted = async ({ rideId, driver}) => {
+    if (!rideId) {
+        throw new Error('Ride id is required');
+    }
+
+    const ride = await Ride.findOne({
+        _id: rideId,
+        driver: driver._id
+    }).populate('user').populate('captain').select('+otp');
+
+    if (!ride) {
+        throw new Error('Ride not found');
+    }
+
+    if (ride.status !== 'ongoing') {
+        throw new Error('Ride not ongoing');
+    }
+
+    await Ride.findOneAndUpdate({
+        _id: rideId
+    }, {
+        status: 'completed'
+    })
+
     return ride;
 }
 
 
-
-module.exports = {createNewRide, getFare}
+module.exports = {createNewRide, getFare, updateRideStatusWithConfirm, updateRideStatusWithAccepted, updateRideStatusWithCompleted};

@@ -9,7 +9,8 @@ import {useGSAP} from '@gsap/react';
 import {useNavigate} from 'react-router-dom'
 import { BASE_URL } from "../constants";
 import axios from 'axios';
-import { addFareAndTripLocations} from "../utils/rideOrderSlice";
+import LocationTracking from "../Components/LocationTracking";
+import { addFareAndTripLocations} from "../utils/rideInfoForUserSlice";
 // import { updateCache } from "../utils/suggestionsSlice";
 import {useWebSocketContext} from '../Context/WebSocketContext'
 
@@ -50,7 +51,7 @@ const UserHome = () => {
       }else if(field === 'destination') {
         setDestinationSuggestions( response.data.data)
       }
-      console.log("suggestions for input ",querySearch, " for field ", field, " are ", response.data.data)
+     
     } catch (error) {
       if (error.name === "CanceledError") {
         console.log(`${field} API call aborted.`);
@@ -126,6 +127,7 @@ const UserHome = () => {
     socket.emit("join", { clientType: "ride", clientId: ride._id })
    }, [ride, socket]);
 
+
   useGSAP(() => {
     if (locationSearchPanel) {
       gsap.to(locationSearchPanelRef.current, {
@@ -147,7 +149,7 @@ const UserHome = () => {
   }, [locationSearchPanel]);
 
   return (
-    <div className="md:flex ">
+    <div className="md:flex">
       <div className="h-screen w-[55%] hidden md:visible  md:flex flex-col justify-center items-center gap-5">
        <div className="h-[40%] p-6 bg-white relative flex flex-col justify-center w-[70%] shadow-lg rounded-lg">
             <h5
@@ -197,10 +199,9 @@ const UserHome = () => {
 
       <div className="w-screen h-screen md:w-[45%] ">
         <div className="w-full h-full md:flex justify-center items-center">
-          <img
-            src={TEMP_IMG}
-            className="h-screen md:h-[600px] w-full md:w-[70%] md:object-cover md:border-white border-4"
-          />
+          <div className="h-screen md:h-[600px] w-full md:w-[70%] md:object-cover md:border-white border-4">
+            <LocationTracking/>
+          </div>
         </div>
 
         <div className="flex flex-col justify-end absolute visible md:hidden top-0 h-screen w-full">
@@ -240,7 +241,7 @@ const UserHome = () => {
             </button>
             </form>
           </div>
-
+   
           <div
             ref={locationSearchPanelRef}
             className="bg-white h-0 opacity-0 overflow-hidden"
@@ -259,3 +260,4 @@ const UserHome = () => {
 };
 
 export default UserHome;
+

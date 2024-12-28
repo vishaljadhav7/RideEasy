@@ -7,8 +7,9 @@ let io;
 function createSocketConnection(server) {
   io = socketIo(server, {
     cors : {
-        origin : "http://localhost:5173",
-        methods : ['GET', 'POST']
+         origin : "*" ,            //["http://localhost:5173", "https://wfvk7zgv-5173.inc1.devtunnels.ms/"],
+        methods : ['GET', 'POST'],
+    
     }
   });
   

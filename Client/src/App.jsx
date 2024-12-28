@@ -15,10 +15,12 @@ import UserHome from './Pages/UserHome'
 import BookingRide from './Pages/BookingRide'
 import MonitoringDriver from './Pages/MonitoringDriver'
 import DriverProtectedRoute from './Components/DriverProtectedRoute'
-import UserProtectedRoute from './Components/UserProtectedRoute'
+import UserProtectedRoute from './Components/UserProtectedRoute';
+import UserRiding from './Pages/UserRiding';
+import DriverRiding from './Pages/DriverRiding'
 
 function App() {
-
+ 
   const Router = createBrowserRouter([
     {
       path : "/",
@@ -64,6 +66,14 @@ function App() {
         {
           path : "/monitor-driver",
           element : <UserProtectedRoute><MonitoringDriver/></UserProtectedRoute>
+        },
+        {
+          path : "/driver-riding",
+          element :  <DriverProtectedRoute> <DriverRiding/> </DriverProtectedRoute>
+        },
+        {
+          path : "/user-riding",
+          element :  <UserProtectedRoute> <UserRiding/> </UserProtectedRoute>
         }
       ],
     },

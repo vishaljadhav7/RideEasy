@@ -1,110 +1,111 @@
 import AwaitingDriverPanel from "../Components/AwaitingDriverPanel";
 import LookingForDriverPanel from "../Components/LookingForDriverPanel";
-import { TEMP_IMG } from "../constants";
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import LocationTracking from "../Components/LocationTracking";
+import { useWebSocketContext } from "../Context/WebSocketContext";
+import { addBookedRide, addStartedRide } from "../utils/rideInfoForUserSlice";
+import { useNavigate } from "react-router-dom";
 
 const MonitoringDriver = () => {
-  const [activePanel, setActivePanel] = useState("lookingForDriver"); // Active panel: "lookingForDriver" or "awaitingDriver"
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [activePanel, setActivePanel] = useState("lookingForDriver"); // "lookingForDriver" or "awaitingDriver"
   const lookingForDriverPanelRef = useRef(null);
   const awaitingDriverPanelRef = useRef(null);
-  const {reservedRide} = useSelector(store => store.rideOrder)
+  const { socket } = useWebSocketContext();
 
-
-  console.log("resservedec ride ", reservedRide  )
   useGSAP(() => {
-    console.log("Active Panel:", activePanel); // Debugging state changes
-
     if (activePanel === "lookingForDriver") {
-      // Animate panels when looking for driver
-      gsap.to(lookingForDriverPanelRef.current, {
-        y: 0,
-        opacity: 1,
-      });
-      gsap.to(awaitingDriverPanelRef.current, {
-        y: "100%",
-        opacity: 0,
-      });
+      gsap.to(lookingForDriverPanelRef.current, { y: 0, opacity: 1 });
+      gsap.to(awaitingDriverPanelRef.current, { y: "100%", opacity: 0 });
     } else if (activePanel === "awaitingDriver") {
-      // Animate panels when awaiting driver
-      gsap.to(lookingForDriverPanelRef.current, {
-        y: "100%",
-        opacity: 0,
-        display : "none"
-      });
-      gsap.to(awaitingDriverPanelRef.current, {
-        y: 0,
-        opacity: 1,
-      });
+      gsap.to(lookingForDriverPanelRef.current, { y: "100%", opacity: 0, display: "none" });
+      gsap.to(awaitingDriverPanelRef.current, { y: 0, opacity: 1 });
     }
-  }, [activePanel]); // Re-run animation whenever activePanel changes
+  }, [activePanel]);
 
   const handleLookingForDriver = () => {
-    console.log("Switching to AwaitingDriverPanel"); // Debug user action
     setActivePanel("awaitingDriver");
   };
 
+  useEffect(() => {
+    socket.on("ride-confirmed", (data) => {
+      dispatch(addBookedRide(data));
+      handleLookingForDriver();
+    });
+
+    socket.on("ride-started", (ride) => {
+      dispatch(addStartedRide(ride));
+      navigate("/user-riding");
+    });
+  }, []);
+
   return (
-    <div className="md:flex">
-      <div className="w-[60%] md:flex h-screen hidden md:visible">
-        {/* Form Section */}
-        <div className="h-full w-[38%] flex justify-center items-center">
-          <form className="w-[85%] bg-gray-100 p-6 shadow-md rounded-md flex flex-col gap-4">
-            <h1 className="text-xl font-semibold text-gray-800 text-center">Plan Your Trip</h1>
+    <div className="md:flex h-screen">
+
+      {/* ✅ Desktop View */}
+      <div className="hidden md:flex h-full w-[60%] bg-gray-100">
+        {/* 📄 Form Section */}
+        <div className="w-[38%] flex justify-center items-center">
+          <form className="w-[85%] bg-white p-6 shadow-lg rounded-lg space-y-4">
+            <h1 className="text-2xl font-semibold text-center text-gray-800">Plan Your Trip</h1>
             <input
               type="text"
               placeholder="Pickup Location"
-              className="bg-white px-4 py-2 text-lg rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400"
+              className="w-full px-4 py-2 text-lg border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400"
             />
             <input
               type="text"
               placeholder="Destination"
-              className="bg-white px-4 py-2 text-lg rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400"
+              className="w-full px-4 py-2 text-lg border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400"
             />
           </form>
         </div>
-        <div className="h-full w-[62%] flex justify-center items-center">
+
+        {/* 📝 Panel Section */}
+        <div className="w-[62%] flex justify-center items-center">
           {activePanel === "lookingForDriver" && (
-            <div className="w-[90%] h-[70%] bg-white p-4 shadow-md rounded-md">
+            <div className="w-[90%] bg-white p-6 shadow-xl rounded-lg">
               <LookingForDriverPanel handleLookingForDriver={handleLookingForDriver} />
             </div>
           )}
           {activePanel === "awaitingDriver" && (
-            <div className="w-[90%] h-[70%] bg-white p-4 shadow-md rounded-md">
+            <div className="w-[90%] bg-white p-6 shadow-xl rounded-lg">
               <AwaitingDriverPanel />
             </div>
           )}
         </div>
       </div>
 
-      {/* Right Panel for Small Devices */}
-      <div className="w-screen h-screen md:w-[40%]">
-        <div className="w-full h-full md:flex justify-center items-center">
-          <img
-            src={TEMP_IMG}
-            className="h-screen md:h-[600px] w-full md:w-[70%] md:object-cover md:border-white border-4"
-          />
+      {/* ✅ Mobile View */}
+      <div className="w-screen md:w-[40%] h-full relative">
+        {/* 🗺️ Location Tracking */}
+        <div className="h-full w-full border-4 border-white overflow-hidden">
+          <LocationTracking />
         </div>
 
-        {/* Small Device Panel: LookingForDriver */}
+        {/* 🚗 LookingForDriver Panel */}
         <div
           ref={lookingForDriverPanelRef}
-          className={`absolute w-full z-10 bottom-0 bg-white px-3 py-10 transform md:hidden ${
-            activePanel === "lookingForDriver" ? "translate-y-0 opacity-1" : "translate-y-full opacity-0"
+          className={`absolute bottom-0 w-full z-10 bg-white px-5 py-8 shadow-2xl rounded-t-2xl transform md:hidden ${
+            activePanel === "lookingForDriver" ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
           }`}
         >
           <LookingForDriverPanel handleLookingForDriver={handleLookingForDriver} />
         </div>
 
-        {/* Small Device Panel: AwaitingDriver */}
-{ (activePanel !== "lookingForDriver") &&    <div
-          ref={awaitingDriverPanelRef}
-          className={`absolute w-full z-10 bottom-0 bg-white px-3 py-10 transform  md:hidden `}
-        >
-          <AwaitingDriverPanel />
-        </div>}
+        {/* 🚦 AwaitingDriver Panel */}
+        {activePanel !== "lookingForDriver" && (
+          <div
+            ref={awaitingDriverPanelRef}
+            className="absolute bottom-0 w-full z-10 bg-white px-5 py-8 shadow-2xl rounded-t-2xl transform md:hidden"
+          >
+            <AwaitingDriverPanel />
+          </div>
+        )}
       </div>
     </div>
   );

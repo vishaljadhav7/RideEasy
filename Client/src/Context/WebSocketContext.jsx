@@ -3,7 +3,7 @@ import { io } from 'socket.io-client';
 
 export const WebSocketContext = createContext()
 
-const socket = io(`${import.meta.env.VITE_BASE_URL}`); 
+const socket = io("http://localhost:3000"); 
 
 export const WebSocketProvider = ({children}) => {
  

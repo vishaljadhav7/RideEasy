@@ -27,7 +27,8 @@ const DriverSignIn = () => {
       dispatch(addDriver(res.data.data));
       return navigate("/drive-home");
     } catch (error) {
-      setErrorMessage(error?.response?.data || "Something went wrong");
+      setErrorMessage(error || "Something went wrong");
+      console.log(error);
     }
   };
 
@@ -91,7 +92,7 @@ const DriverSignIn = () => {
           </div>
 
           {/* Error Message */}
-          {errorMessage && <p className="text-red-500 mt-3 text-sm">{errorMessage}</p>}
+          {errorMessage && <p className="text-red-500 mt-3 text-sm">{errorMessage.message}</p>}
         </form>
       </div>
 

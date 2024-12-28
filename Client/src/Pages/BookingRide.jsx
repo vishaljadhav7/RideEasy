@@ -1,10 +1,11 @@
 import RideOptionsPanel from '../Components/RideOptionsPanel';
 import ConfirmTrip from '../Components/ConfirmTrip';
 import { useNavigate } from 'react-router-dom';
-import { BASE_URL, TEMP_IMG } from '../constants';
+import { BASE_URL } from '../constants';
 import { useRef, useState, useEffect } from "react";
+import LocationTracking from '../Components/LocationTracking';
 import gsap from 'gsap';
-import { addReservedRide } from '../utils/rideOrderSlice';
+import { addConfirmedTrip } from '../utils/rideInfoForUserSlice';
 import axios from 'axios';
 import { useSelector , useDispatch} from 'react-redux';
 
@@ -14,7 +15,7 @@ const BookingRide = () => {
   const [activePanel, setActivePanel] = useState("rideOptions"); // "rideOptions" or "confirmTrip"
   const rideOptionsPanelRef = useRef(null);
   const confirmTripPanelRef = useRef(null);
-  const {tripLocations} = useSelector(store => store.rideOrder)
+  const {tripLocations} = useSelector(store => store.rideForUser)
   const [fareAndVehicleType, setFareAndVehicleType] = useState({fareValue : '', vehicleType : ''}) 
 
   const selectFareAndVehicle = (fee, vehicle ) => {
@@ -70,7 +71,7 @@ const BookingRide = () => {
       );
   
       if (res?.data?.data) {
-        dispatch(addReservedRide(res.data.data));
+        dispatch(addConfirmedTrip(res.data.data));
         navigate("/monitor-driver");
       } else {
         console.error("No ride data returned");
@@ -128,10 +129,9 @@ const BookingRide = () => {
       {/* Right Panel: Image */}
       <div className="w-screen h-screen md:w-[40%]">
         <div className="w-full h-full md:flex justify-center items-center">
-          <img
-            src={TEMP_IMG}
-            className="h-screen md:h-[600px] w-full md:w-[70%] md:object-cover md:border-white border-4"
-          />
+           <div className="h-screen md:h-[600px] w-full md:w-[70%] md:object-cover md:border-white border-4">
+           <LocationTracking/>
+           </div>
         </div>
 
         {/* Ride Options Panel */}

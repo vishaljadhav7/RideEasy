@@ -1,4 +1,5 @@
 const axios = require('axios');
+const Driver = require('../models/driver.model')
 
 const fetchAddressCoordinates = async (address) => {
     const url = `https://maps.gomaps.pro/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${process.env.MAPS_API_KEY}`;
@@ -47,8 +48,6 @@ const fetchDistanceAndTime = async (pickup, destination) => {
     }
 }
 
-
-
 const fetchSuggestions = async (query) => {
     if (!query) {
         throw new Error('query is required');
@@ -69,9 +68,22 @@ const fetchSuggestions = async (query) => {
     }
 }
 
+const fetchDriverInTheRadius = async (latitude, longitude, radius) => {
+    const drivers = await Driver.find({
+        location: {
+            $geoWithin: {
+                $centerSphere: [ [ latitude, longitude], radius / 6371 ]
+            }
+        }
+    });
+
+    return drivers;
+}
+
 
 module.exports = {
     fetchAddressCoordinates,
     fetchDistanceAndTime,
-    fetchSuggestions
+    fetchSuggestions,
+    fetchDriverInTheRadius
 }
