@@ -1,9 +1,7 @@
-const validateSignUpData =  require('../utils/validation')
-const ApiError = require('../utils/ApiError') // standerdized API errors and response
-const ApiResponse = require('../utils/ApiResponse')
-const User = require('../models/user.model') 
-
-
+const ApiError = require('../utils/ApiError'); // standerdized API errors and response
+const ApiResponse = require('../utils/ApiResponse');
+const User = require('../models/user.model');
+const Ride = require('../models/ride.model');
 
 const signUpUser = async (req, res, next) => {
   try {
@@ -122,8 +120,30 @@ const signOutUser = async(req, res) => {
 }
 
 
+const getRidesCompletedByUser = async (req, res, next) => {
+    try {
+       const userId = req.user._id;
+  
+       const ridesBookedByUser = await Ride.find({
+        user: userId,
+        status: 'completed',
+       }).populate('user', "-password").populate('driver', "-password");
+  
+       const serverResponse = new ApiResponse(200, ridesBookedByUser , "Rides Found Successfully")
+  
+       return res.status(200).json(serverResponse);
+  
+    } catch (error) {
+      return res
+      .status(400)
+      .json(new ApiError(error.statusCode || 400, error.message));
+    }
+  }
+  
+
 module.exports = {
     signInUser,
     signOutUser,
-    signUpUser
+    signUpUser,
+    getRidesCompletedByUser
 }

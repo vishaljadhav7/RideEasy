@@ -18,6 +18,8 @@ import DriverProtectedRoute from './Components/DriverProtectedRoute'
 import UserProtectedRoute from './Components/UserProtectedRoute';
 import UserRiding from './Pages/UserRiding';
 import DriverRiding from './Pages/DriverRiding'
+import UserProfile from './Pages/UserProfile';
+import DriverProfile from './Pages/DriverProfile'
 
 function App() {
  
@@ -74,6 +76,14 @@ function App() {
         {
           path : "/user-riding",
           element :  <UserProtectedRoute> <UserRiding/> </UserProtectedRoute>
+        },
+        {
+          path : "/driver-profile",
+          element :  <DriverProfile/> 
+        },
+        {
+          path : "/user-profile",
+          element :  <UserProtectedRoute> <UserProfile/> </UserProtectedRoute>
         }
       ],
     },

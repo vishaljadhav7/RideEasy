@@ -1,4 +1,5 @@
 const Driver = require("../models/driver.model");
+const Ride = require('../models/ride.model');
 const { validationResult } = require('express-validator');
 const ApiError = require("../utils/ApiError");
 const ApiResponse = require("../utils/ApiResponse");
@@ -117,5 +118,25 @@ const driverSignOut = async (req, res, next) => {
      .json(new ApiResponse(200, {}, "Driver/Captian has logged Out"))
 }
 
+const getCompletedRidesByDriver = async (req, res, next) => {
+  try {
+     const driverId = req.driver._id;
 
-module.exports = {driverSignUp, driverSignIn, driverSignOut}
+     const ridesByDriver = await Ride.find({
+      driver: driverId,
+      status: 'completed',
+     }).populate('user', "-password").populate('driver', "-password");
+
+     const serverResponse = new ApiResponse(200, ridesByDriver , "Rides Found Successfully")
+
+     return res.status(200).json(serverResponse);
+
+  } catch (error) {
+    return res
+    .status(400)
+    .json(new ApiError(error.statusCode || 400, error.message));
+  }
+}
+
+
+module.exports = {driverSignUp, driverSignIn, driverSignOut, getCompletedRidesByDriver};

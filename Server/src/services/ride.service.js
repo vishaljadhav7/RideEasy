@@ -50,15 +50,12 @@ const getFare = async (pickup, destination) => {
 const createNewRide = async ({
     userId, pickup, destination, vehicleType
 }) => {
-  console.log("invoked createNewride service")
 
     if (!userId || !pickup || !destination || !vehicleType) {
         throw new Error('All fields are required');
     }
 
     const fare = await getFare(pickup, destination);
-
-   console.log("got fare values " , fare)
 
     const ride = await Ride.create({
         user : userId,
@@ -88,8 +85,6 @@ const updateRideStatusWithConfirm = async ({rideId, driver}) => {
         _id : rideId
     }).populate('user', "-password").populate('driver',"-password").select('+otp');
 
-    console.log("updateRideStatusWithConfirm -> accecpted  ",  bookedRide.status)
-     
 
     if (!bookedRide) {
         throw new Error('Ride not found');
