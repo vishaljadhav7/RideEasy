@@ -7,9 +7,8 @@ let io;
 function createSocketConnection(server) {
   io = socketIo(server, {
     cors : {
-         origin : ["http://localhost:5173", "https://ride-easy-seven.vercel.app"],
+         origin : ["http://localhost:5173", "https://rideeasy-1.onrender.com"],
         methods : ['GET', 'POST', 'PATCH', 'DELETE'],
-    
     }
   });
   
