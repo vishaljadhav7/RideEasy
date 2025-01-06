@@ -1,4 +1,4 @@
-const {createRide, getFareForRide, confirmRide, startRide, endRide} = require('../controllers/ride.controller');
+const {createRide, getFareForRide, confirmRide, startRide, endRide, bookedRides, completedRides} = require('../controllers/ride.controller');
 const {body, query} = require('express-validator');
 const express = require('express');
 const rideRouter = express.Router();
@@ -42,5 +42,14 @@ rideRouter.post('/end-ride',
   body('rideId').isMongoId().withMessage('Invalid ride id'),
   endRide
 );
+
+rideRouter.get('/booked-rides', verifyUser, 
+  bookedRides
+)
+
+rideRouter.get('/completed-rides', verifyDriver, 
+  completedRides
+)
+
 
 module.exports = rideRouter;

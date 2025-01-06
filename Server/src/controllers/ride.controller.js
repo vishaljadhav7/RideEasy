@@ -140,4 +140,40 @@ const endRide = async (req, res) => { // for driver
     }
 }
 
-module.exports = {createRide, getFareForRide, confirmRide, startRide, endRide};
+const bookedRides = async (req, res) => {
+    try {
+        const userId = req.user._id;
+
+        const allRides = await Ride.find({}).populate('user','-password -socketId').populate('driver','-password -socketId')
+        const bookedRides = allRides.filter((ride) => {
+           if(ride.user._id.toString() === userId.toString() && ride.status === 'completed'){
+              return ride
+           }
+        })
+        return res.status(200).json(new ApiResponse(200, bookedRides, "rides found successfully") );
+    } catch (error) {
+        return res.status(400).json( new ApiError(400, error.message || "Something went wrong"));
+    }
+}
+
+
+const completedRides = async (req, res) => {
+    try {
+        const driverId = req.driver._id;
+
+        const allRides = await Ride.find({}).populate('user','-password -socketId').populate('driver','-password -socketId')
+        const completedOnes = allRides.filter((ride) => {
+           if(ride.driver?._id.toString() === driverId.toString() && ride.status === 'completed'){
+              return ride
+           }
+        })
+        return res.status(200).json(new ApiResponse(200, completedOnes, "rides found successfully") );
+    } catch (error) {
+        return res.status(400).json( new ApiError(400, error.message || "Something went wrong"));
+    }
+}
+
+module.exports = {createRide, getFareForRide, confirmRide, startRide, endRide, bookedRides, completedRides};
+
+
+

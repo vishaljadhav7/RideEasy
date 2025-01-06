@@ -54,7 +54,7 @@ const UserHome = () => {
      
     } catch (error) {
       if (error.name === "CanceledError") {
-        console.log(`${field} API call aborted.`);
+        console.error(`${field} API call aborted.`);
       } else {
         console.error("Error fetching suggestions:", error);
       }

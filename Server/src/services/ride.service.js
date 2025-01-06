@@ -100,9 +100,8 @@ const updateRideStatusWithAccepted = async ({ rideId, otp, driver }) => {
 
     const ride = await Ride.findOne({
         _id: rideId
-    }).populate('user').populate('driver').select('+otp');
+    }).populate('user', "-password").populate('driver', "-password").select('+otp');
 
-    console.log("updateRideStatusWithAccepted -> will set to ongoing ", ride.status);
 
     if (!ride) {
         throw new Error('Ride not found');
@@ -133,7 +132,7 @@ const updateRideStatusWithCompleted = async ({ rideId, driver}) => {
     const ride = await Ride.findOne({
         _id: rideId,
         driver: driver._id
-    }).populate('user').populate('captain').select('+otp');
+    }).populate('user','-password').populate('driver','-password').select('+otp');
 
     if (!ride) {
         throw new Error('Ride not found');

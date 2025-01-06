@@ -16,7 +16,6 @@ const Sidebar = ({isRider}) => {
   
     const handleLogout = async () => { // driver
       const apiPath = isRider ? "/auth/user/signout" : "/auth/driver/signout" ;
-      console.log(apiPath, "localStorage.getItem('token') ", localStorage.getItem('token') );
       try {
         await axios.post(BASE_URL + apiPath, {}, {
           headers: {
@@ -52,7 +51,7 @@ const Sidebar = ({isRider}) => {
           <ul  
           ref = {reference}
           className="absolute top-12 right-0 w-56 p-4 shadow-lg rounded-lg flex flex-col gap-4 items-center bg-white text-gray-800 z-50 font-semibold">
-            <Link to={`${isRider ? "/ride-home" : "/driver-home"}`} className="w-full">
+            <Link to={`${isRider ? "/ride-home" : "/drive-home"}`} className="w-full">
               <button className="w-full py-2 rounded-md hover:bg-gray-100 transition">Home</button>
             </Link>
             <Link to={`${isRider ? "/user-profile" : "/driver-profile"}`} className="w-full">

@@ -54,7 +54,6 @@ const DriverSignUp = () => {
         );
          
         localStorage.setItem('token', res.data.token)
-        // console.log("res.data.data from driver sign up", res.data.data, res.data.token) 
         dispatch(addDriver(res.data.data)) 
         return navigate("/drive-home");
       } catch (err) {

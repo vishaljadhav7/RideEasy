@@ -48,9 +48,9 @@ const RideDetails = ({ startedRide }) => (
 
 // Main Component
 const UserRiding = () => {
+  const navigate = useNavigate();
   const startedRide = useSelector((store) => store.rideForUser.startedRide);
   const { socket } = useWebSocketContext();
-  const navigate = useNavigate();
 
   useEffect(() => {
     socket.on('ride-ended', () => {

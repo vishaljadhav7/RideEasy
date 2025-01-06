@@ -31,8 +31,6 @@ const ConfirmRidePopUp = () => {
     }
   };
 
-  console.log('store.rideForDriver.confirmedRide @ConfirmRidePopUp', confirmedRide);
-
   return (
     <div className="p-6 bg-white rounded-xl shadow-lg max-w-lg mx-auto ">
       {/* 🚗 Ride Confirmation Header */}

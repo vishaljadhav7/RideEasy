@@ -77,7 +77,6 @@ const driverSignIn = async (req, res, next) => {
        
        const isPasswordCorrect = await driverExist.verifyPassword(password);
        
-       console.log("isPasswordCorrect ", isPasswordCorrect)
        if(!isPasswordCorrect){
         return res.status(400).json(new ApiError(400, "Invalid Credentials"))
        }

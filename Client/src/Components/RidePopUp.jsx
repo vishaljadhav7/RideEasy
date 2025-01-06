@@ -5,7 +5,6 @@ import { RiMapPin2Fill, RiMapPinUserFill } from "react-icons/ri";
 const RidePopUp = ({ handleConfirmRide }) => {
   const newRide = useSelector((store) => store.rideForDriver.newRide);
 
-  console.log("newRide from RidePopUp 1st", newRide);
 
   return (
     <div className="bg-white rounded-xl shadow-md p-5 max-w-lg mx-auto">

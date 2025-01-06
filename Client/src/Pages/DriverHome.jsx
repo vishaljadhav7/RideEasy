@@ -23,7 +23,7 @@ const DriverHome = () => {
   const  [newRide, setNewRide] = useState({})
   // const newRide =  useSelector(store => store.rideForDriver)
   
-  // console.log("newRide @DriverHome", newRide)
+
   
 
   const handleConfirmRide = async () => {

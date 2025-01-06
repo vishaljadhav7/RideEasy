@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import {  useState } from 'react';
 import { RiArrowUpWideLine } from "react-icons/ri";
 import FinishRide from '../Components/FinishRide';
 import { useSelector } from 'react-redux';
@@ -11,7 +11,6 @@ const DriverRiding = () => {
   return (
     <div className='h-screen'>
 
-      {/* ✅ Desktop View */}
       <div className='md:visible hidden h-full w-screen  md:flex justify-around items-center'>
         <div className='w-[35%] h-auto bg-white p-4 shadow-lg rounded-lg'>
           <FinishRide ride={rideData} />
@@ -21,7 +20,6 @@ const DriverRiding = () => {
         </div>
       </div>
 
-      {/* ✅ Mobile View */}
       <div className='md:hidden visible h-full relative flex flex-col justify-end'>
         <div
           className='h-[100px] w-screen p-6 relative flex items-center justify-between bg-yellow-400 pt-10'
@@ -38,7 +36,6 @@ const DriverRiding = () => {
           </button>
         </div>
 
-        {/* ✅ Finish Ride Panel */}
         {finishRidePanel && (
           <div className='fixed w-full z-[500] bottom-0 bg-white px-3 py-10 pt-12 h-[85%]'>
             <FinishRide
@@ -48,7 +45,7 @@ const DriverRiding = () => {
           </div>
         )}
 
-        {/* ✅ Map Section */}
+        {/*  Map Section */}
         <div className='h-screen fixed w-screen top-0 z-[-1]'>
           <LocationTracking />
         </div>

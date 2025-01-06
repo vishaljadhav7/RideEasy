@@ -1,4 +1,4 @@
-import React from 'react';
+import {BASE_URL} from '../constants' ;
 import { IoLocationOutline, IoLocation } from 'react-icons/io5';
 import { GrCurrency } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
@@ -9,11 +9,11 @@ const FinishRide = ({ setFinishRidePanel = () => {} }) => {
   const navigate = useNavigate();
   const rideData = useSelector((store) => store.rideForDriver.startedRide);
 
-  // ✅ End Ride Handler
+  //  End Ride Handler
   async function endRide() {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/ride/end-ride`,
+        `${BASE_URL}/ride/end-ride`, 
         {
           rideId: rideData._id,
         },
@@ -23,9 +23,10 @@ const FinishRide = ({ setFinishRidePanel = () => {} }) => {
           },
         }
       );
+      
 
       if (response.status === 200) {
-        navigate('/driver-home');
+        navigate('/drive-home');
       }
     } catch (error) {
       console.error('Failed to end the ride:', error);
@@ -34,7 +35,7 @@ const FinishRide = ({ setFinishRidePanel = () => {} }) => {
 
   return (
     <div className='p-4'>
-      {/* 📱 Close Panel Button (Mobile Only) */}
+      {/*  Close Panel Button (Mobile Only) */}
       <h5
         className='p-1 text-center w-[93%] absolute top-0 md:hidden block cursor-pointer'
         onClick={() => setFinishRidePanel(false)}
@@ -42,10 +43,10 @@ const FinishRide = ({ setFinishRidePanel = () => {} }) => {
         <IoLocationOutline className='text-3xl text-gray-400' />
       </h5>
 
-      {/* 🚗 Header */}
+      {/*  Header */}
       <h3 className='text-2xl font-bold mb-5 text-gray-800'>Finish this Ride</h3>
 
-      {/* 👤 Rider Info */}
+      {/*  Rider Info */}
       <div className='flex items-center justify-between p-4 border-2 border-yellow-400 rounded-xl shadow-md'>
         <div className='flex items-center gap-3'>
           <img
@@ -64,9 +65,9 @@ const FinishRide = ({ setFinishRidePanel = () => {} }) => {
         </h5>
       </div>
 
-      {/* 📍 Ride Details */}
+      {/*  Ride Details */}
       <div className='w-full mt-6 space-y-4'>
-        {/* 🚦 Pickup Location */}
+        {/*  Pickup Location */}
         <div className='flex items-center gap-4 p-3 border-b'>
           <IoLocationOutline className='text-xl text-gray-700' />
           <div>
@@ -75,7 +76,7 @@ const FinishRide = ({ setFinishRidePanel = () => {} }) => {
           </div>
         </div>
 
-        {/* 📍 Drop-off Location */}
+        {/*  Drop-off Location */}
         <div className='flex items-center gap-4 p-3 border-b'>
           <IoLocation className='text-xl text-gray-700' />
           <div>
@@ -84,7 +85,7 @@ const FinishRide = ({ setFinishRidePanel = () => {} }) => {
           </div>
         </div>
 
-        {/* 💵 Fare */}
+        {/*  Fare */}
         <div className='flex items-center gap-4 p-3'>
           <GrCurrency className='text-xl text-gray-700' />
           <div>
@@ -94,7 +95,7 @@ const FinishRide = ({ setFinishRidePanel = () => {} }) => {
         </div>
       </div>
 
-      {/* ✅ Finish Ride Button */}
+      {/* Finish Ride Button */}
       <div className='mt-8'>
         <button
           onClick={endRide}
