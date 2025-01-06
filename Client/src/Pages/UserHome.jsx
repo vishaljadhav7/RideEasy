@@ -57,7 +57,6 @@ const UserHome = () => {
     try {
       const response = await axios.get(`${BASE_URL}/map/get-suggestions`, {
         params: { input: querySearch },
-        withCredentials: true,
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

@@ -6,8 +6,8 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: "*" , // ["http://localhost:5173", "https://wfvk7zgv-5173.inc1.devtunnels.ms/"],
-    methods: [ 'GET', 'POST' ],
+    origin:  ["http://localhost:5173", "https://ride-easy-seven.vercel.app"],
+    methods: [ 'GET', 'POST', 'PATCH', 'DELETE'],
     credentials: true, 
   })
 );
