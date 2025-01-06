@@ -9,14 +9,14 @@ const LookingForDriver = () => {
 
   return (
     <div className="relative bg-white p-6 rounded-xl shadow-md max-w-lg mx-auto">
-      {/* 📌 Toggle Button (for Mobile Devices) */}
+    
       <h5
         className="absolute -top-8 right-[50%] translate-x-2/4 block md:hidden p-1 text-center cursor-pointer text-3xl font-bold transition-transform duration-300 ease-in-out transform hover:scale-y-150 origin-center"
       >
         <RiArrowDownWideLine />
       </h5>
 
-      {/* 🚗 Header */}
+
       <h5 className="text-center text-2xl font-semibold text-gray-700 mb-4">
         Looking For Driver
       </h5>
@@ -30,7 +30,7 @@ const LookingForDriver = () => {
         />
       </div>
 
-      {/* 📍 Ride Details */}
+    
       <div className="space-y-4">
         {/* Pickup Location */}
         <div className="flex items-center gap-4 p-3 border-b">

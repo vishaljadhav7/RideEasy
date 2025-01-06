@@ -46,7 +46,7 @@ const MonitoringDriver = () => {
   return (
     <div className="md:flex h-screen">
 
-      {/* ✅ Desktop View */}
+      {/*  Desktop View */}
       <div className="hidden md:flex h-full w-[60%] bg-gray-100">
         {/* 📄 Form Section */}
         <div className="w-[38%] flex justify-center items-center">
@@ -65,7 +65,7 @@ const MonitoringDriver = () => {
           </form>
         </div>
 
-        {/* 📝 Panel Section */}
+        {/*  Panel Section */}
         <div className="w-[62%] flex justify-center items-center">
           {activePanel === "lookingForDriver" && (
             <div className="w-[90%] bg-white p-6 shadow-xl rounded-lg">
@@ -80,14 +80,14 @@ const MonitoringDriver = () => {
         </div>
       </div>
 
-      {/* ✅ Mobile View */}
+      {/*  Mobile View */}
       <div className="w-screen md:w-[40%] h-full relative">
         {/* 🗺️ Location Tracking */}
         <div className="h-full w-full border-4 border-white overflow-hidden">
           <LocationTracking />
         </div>
 
-        {/* 🚗 LookingForDriver Panel */}
+        {/*  LookingForDriver Panel */}
         <div
           ref={lookingForDriverPanelRef}
           className={`absolute bottom-0 w-full z-10 bg-white px-5 py-8 shadow-2xl rounded-t-2xl transform md:hidden ${

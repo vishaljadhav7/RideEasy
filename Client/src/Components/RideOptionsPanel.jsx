@@ -7,10 +7,10 @@ const RideOptionsPanel = ({ selectFareAndVehicle }) => {
 
   return (
     <div className="bg-white p-4 rounded-xl shadow-md max-w-lg mx-auto">
-      {/* 🚗 Header */}
+ 
       <h3 className="text-2xl font-semibold mb-5 text-gray-800">Choose a Vehicle</h3>
 
-      {/* 🚙 Car Option */}
+ 
       <div
         className="flex items-center justify-between border rounded-xl p-3 mb-3 hover:shadow-lg cursor-pointer transition-all duration-300"
         onClick={() => selectFareAndVehicle(fare.car, "car")}
@@ -26,7 +26,7 @@ const RideOptionsPanel = ({ selectFareAndVehicle }) => {
         <h2 className="text-lg font-semibold text-gray-800">₹{fare.car}</h2>
       </div>
 
-      {/* 🛵 Moto Option */}
+   
       <div
         className="flex items-center justify-between border rounded-xl p-3 mb-3 hover:shadow-lg cursor-pointer transition-all duration-300"
         onClick={() => selectFareAndVehicle(fare.moto, "moto")}

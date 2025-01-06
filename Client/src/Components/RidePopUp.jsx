@@ -31,7 +31,7 @@ const RidePopUp = ({ handleConfirmRide }) => {
         </h5>
       </div>
 
-      {/* 📍 Ride Details */}
+    
       <div className="w-full mt-5 space-y-3">
         <div className="flex items-center gap-5 p-3 border-b">
           <RiMapPinUserFill className="text-gray-600 text-xl" />
@@ -52,7 +52,7 @@ const RidePopUp = ({ handleConfirmRide }) => {
         </div>
       </div>
 
-      {/* ✅ Action Buttons */}
+     
       <div className="mt-5 space-y-2">
         <button
           className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold p-2 rounded-lg transition-all"

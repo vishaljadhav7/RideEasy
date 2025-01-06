@@ -33,10 +33,10 @@ const ConfirmRidePopUp = () => {
 
   return (
     <div className="p-6 bg-white rounded-xl shadow-lg max-w-lg mx-auto ">
-      {/* 🚗 Ride Confirmation Header */}
+   
       <h3 className="text-2xl font-bold mb-5 text-center text-gray-800">Confirm Ride to Start</h3>
 
-      {/* 🧑 Rider Info */}
+    
       <div className="flex items-center justify-between p-4 border-2 border-yellow-400 rounded-lg mb-6">
         <div className="flex items-center gap-4">
           <img
@@ -51,7 +51,7 @@ const ConfirmRidePopUp = () => {
         </h5>
       </div>
 
-      {/* 📍 Ride Details */}
+    
       <div className="space-y-4">
         <div className="flex items-center gap-4 p-3 border-b">
           <IoLocationOutline className="text-2xl text-gray-600" />
@@ -76,7 +76,7 @@ const ConfirmRidePopUp = () => {
         </div>
       </div>
 
-      {/* 🔑 OTP & Buttons */}
+   
       <form onSubmit={(e) => e.preventDefault()} className="mt-6 space-y-4">
         <input
           value={otp}

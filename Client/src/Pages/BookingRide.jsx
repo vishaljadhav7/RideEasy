@@ -151,5 +151,5 @@ const BookingRide = () => {
     </div>
   );
 };
-
+     
 export default BookingRide;

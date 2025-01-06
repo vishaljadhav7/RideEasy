@@ -8,7 +8,7 @@ const ConfirmTrip = ({ handleConfirmTrip, handleToggleConfirmTrip = () => {}, fa
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-md max-w-lg mx-auto relative">
-      {/* 📌 Toggle Button (for Mobile Devices) */}
+ 
       <h5
         onClick={() => handleToggleConfirmTrip && handleToggleConfirmTrip()}
         className="absolute top-1 right-[50%] translate-x-2/4 block md:hidden p-1 text-center cursor-pointer text-3xl font-bold transition-transform duration-300 ease-in-out transform hover:scale-y-150 origin-center"
@@ -16,10 +16,10 @@ const ConfirmTrip = ({ handleConfirmTrip, handleToggleConfirmTrip = () => {}, fa
         <RiArrowDownWideLine />
       </h5>
 
-      {/* 🚗 Header */}
+ 
       <h3 className="text-2xl font-bold mb-5 text-center text-gray-800">Confirm Your Trip</h3>
 
-      {/* 🖼️ Image Section */}
+   
       <div className="flex justify-center mb-4">
         <img
           className="h-24 w-full rounded-lg object-cover"
@@ -28,7 +28,7 @@ const ConfirmTrip = ({ handleConfirmTrip, handleToggleConfirmTrip = () => {}, fa
         />
       </div>
 
-      {/* 📍 Trip Details */}
+
       <div className="space-y-4">
         {/* Pickup Location */}
         <div className="flex items-center gap-4 p-3 border-b">
@@ -58,7 +58,7 @@ const ConfirmTrip = ({ handleConfirmTrip, handleToggleConfirmTrip = () => {}, fa
         </div>
       </div>
 
-      {/* ✅ Confirm Button */}
+
       <button
         onClick={handleConfirmTrip}
         className="w-full mt-6 bg-green-600 hover:bg-green-700 text-white font-semibold text-lg py-3 rounded-lg transition-all"

@@ -4,6 +4,7 @@ import { GrCurrency } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { RiArrowUpWideLine } from "react-icons/ri";
 
 const FinishRide = ({ setFinishRidePanel = () => {} }) => {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ const FinishRide = ({ setFinishRidePanel = () => {} }) => {
         className='p-1 text-center w-[93%] absolute top-0 md:hidden block cursor-pointer'
         onClick={() => setFinishRidePanel(false)}
       >
-        <IoLocationOutline className='text-3xl text-gray-400' />
+        <RiArrowUpWideLine className='text-3xl text-gray-800' />
       </h5>
 
       {/*  Header */}

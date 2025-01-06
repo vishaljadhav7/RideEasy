@@ -11,30 +11,23 @@ const AwaitingDriverPanel = () => {
   // const [rideType, setRideType] = useState(null)
  
 
-  // useEffect(()=> {
-  //   const vehicleType = bookedRide?.driver.vehicleDetails.type;
-
-  //     if(vehicleType === 'car'){
-  //       setRideType(carURL)
-  //     }else if(vehicleType === 'moto'){
-  //       setRideType(motoURL)
-  //     }else if(vehicleType === 'auto'){
-  //       setRideType(autoURL)
-  //     }
-  // }, [])
 
     return (
         <div className="relative">
           <div className='flex items-center justify-between'>
-            <img className='h-12' src={bookedRide?.driver.profilePic} alt="" />
+            <img className='h-14 w-14 ml-4 rounded-full object-cover' src={bookedRide?.driver.profilePic} alt="" />
             <div className='text-right'>
               <h4 className='text-xl font-semibold -mt-1 -mb-1'>
-                <span className='text-base font-extrabold text-red-500'>STATUS :</span> {bookedRide?.status}
+                <span className='text-base font-extrabold text-red-500'>STATUS : </span> {bookedRide?.status}
               </h4>
-              <h2 className='text-lg font-medium capitalize'>{bookedRide?.driver.fullName.firstName}</h2>
-              <h4 className='text-xl font-semibold -mt-1 -mb-1'>{bookedRide?.driver.vehicleDetails.plateNumber}</h4>
+              <h2 className='text-lg font-medium capitalize'> 
+              <span className='text-base font-extrabold text-gray-500'>Driver Name : </span> 
+                {bookedRide?.driver.fullName.firstName}</h2>
+              <h4 className='text-xl font-semibold -mt-1 -mb-1'>
+              <span className='text-base font-extrabold text-gray-500'>Plate Num : </span> 
+                {bookedRide?.driver.vehicleDetails.plateNumber}</h4>
               {/* <p className='text-base text-gray-600'>{bookedRide?.driver.vehicleDetails.type}</p> */}
-              <h1 className='text-lg font-semibold'>{bookedRide?.otp}</h1>
+              <h1 className='text-lg font-semibold'><span className='text-base font-extrabold text-green-500'>OTP : </span> {bookedRide?.otp}</h1>
             </div>
           </div>
     

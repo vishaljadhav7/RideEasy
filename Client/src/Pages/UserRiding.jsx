@@ -6,7 +6,7 @@ import { MdOutlineCurrencyRupee } from 'react-icons/md';
 import { RiMapPin2Fill } from 'react-icons/ri';
 import LocationTracking from '../Components/LocationTracking';
 
-// Ride Details Component
+
 const RideDetails = ({ startedRide }) => (
   <div className='p-4 shadow-2xl'>
     <div className='flex items-center justify-between'>
@@ -19,9 +19,9 @@ const RideDetails = ({ startedRide }) => (
         <h4 className='text-xl font-semibold -mt-1 -mb-1'>
           <span className='text-base font-extrabold text-red-500'>STATUS:</span> {startedRide?.status}
         </h4>
-        <h2 className='text-lg font-medium capitalize'>{startedRide?.driver?.fullName?.firstName}</h2>
-        <h4 className='text-xl font-semibold -mt-1 -mb-1'>{startedRide?.driver?.vehicleDetails?.plateNumber}</h4>
-        <p className='text-sm text-gray-600'>Maruti Suzuki Alto</p>
+        <h2 className='text-lg font-medium capitalize'>  <span className='text-base font-extrabold text-gray-500'>Driver Name : </span>  {startedRide?.driver?.fullName?.firstName}</h2>
+        <h4 className='text-xl font-semibold -mt-1 -mb-1'>  <span className='text-base font-extrabold text-gray-500'>Plate Num : </span>  {startedRide?.driver?.vehicleDetails?.plateNumber}</h4>
+        {/* <p className='text-sm text-gray-600'>Maruti Suzuki Alto</p> */}
       </div>
     </div>
     <div className='mt-5'>
@@ -35,11 +35,11 @@ const RideDetails = ({ startedRide }) => (
       <div className='flex items-center gap-5 p-3'>
         <MdOutlineCurrencyRupee />
         <div>
-          <h3 className='text-lg font-medium'>₹{startedRide?.fare}</h3>
+          <h3 className='text-lg font-medium'>₹{startedRide?.fare}/-</h3>
           <p className='text-sm -mt-1 text-gray-600'>Cash Payment</p>
         </div>
       </div>
-    </div>
+    </div>       
     <button className='w-full mt-5 bg-green-500 hover:bg-green-600 text-white font-semibold p-2 rounded-lg'>
       Make a Payment
     </button>

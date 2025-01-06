@@ -32,26 +32,44 @@ const UserHome = () => {
 
   const {socket} = useWebSocketContext()
 
+
+  const handleTripSubmit = async (e) => {
+    e.preventDefault();
+    if (!pickup || !destination) return;
+
+    const res = await axios.get(`${BASE_URL}/ride/get-fare`, {
+      params: { pickup, destination },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+
+    const details = {
+      fareDetails: res.data.data,
+      locationDetails: { pickup, destination },
+    };
+
+    dispatch(addFareAndTripLocations(details));
+    navigate("/ride-booking");
+  };
+
   const fetchSuggestions = async (querySearch = '', field, controller) => {
-    if(!querySearch) return;
+    if (!querySearch) return;
     try {
-      const response = await axios.get(
-        `${BASE_URL}/map/get-suggestions`,
-        {
-          params: { input : querySearch},
-          withCredentials : true,
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-          },
-          signal: controller.signal, // Attach AbortController signal
-        }
-      );
-      if(field === 'pickup'){
-        setPickupSuggestions(response.data.data)
-      }else if(field === 'destination') {
-        setDestinationSuggestions( response.data.data)
+      const response = await axios.get(`${BASE_URL}/map/get-suggestions`, {
+        params: { input: querySearch },
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        signal: controller.signal,
+      });
+
+      if (field === 'pickup') {
+        setPickupSuggestions(response.data.data);
+      } else if (field === 'destination') {
+        setDestinationSuggestions(response.data.data);
       }
-     
     } catch (error) {
       if (error.name === "CanceledError") {
         console.error(`${field} API call aborted.`);
@@ -59,68 +77,27 @@ const UserHome = () => {
         console.error("Error fetching suggestions:", error);
       }
     }
-  
   };
-  
-  const handleTripSubmit = async (e) => {
-    e.preventDefault();
-     if(!pickup && !destination) return;
 
-    const res = await axios.get(`${BASE_URL}/ride/get-fare`, {
-      params : {pickup , destination},
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-      },
-    }) 
+  const debounceFetchSuggestions = (query, field, controllerRef) => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    if (controllerRef.current) controllerRef.current.abort();
 
-    const details = {
-      fareDetails :res.data.data,
-      locationDetails : {pickup , destination}
-    }
+    const controller = new AbortController();
+    controllerRef.current = controller;
 
-    dispatch(addFareAndTripLocations(details))
-    
-    navigate("/ride-booking")
-  }
+    timerRef.current = setTimeout(() => {
+      fetchSuggestions(query, field, controller);
+    }, 500);
+  };
 
-  useEffect(()=> {
-    if(pickup) {
-      if(timerRef.current){
-          clearTimeout(timerRef.current)
-      }
+  useEffect(() => {
+    if (pickup) debounceFetchSuggestions(pickup, 'pickup', pickupControllerRef);
+  }, [pickup]);
 
-      if (pickupControllerRef.current) {
-        pickupControllerRef.current.abort();
-      }
-
-      const controller = new AbortController();
-      pickupControllerRef.current = controller;
-
-     timerRef.current = setTimeout(() => {     
-      fetchSuggestions(pickup, "pickup", pickupControllerRef.current)    
-     }, 500)
-      return () => { clearTimeout(timerRef.current)}      
-       } 
-   }, [pickup])
-  
-
-   useEffect(()=> {
-    if(destination) {
-      if(timerRef.current){
-        clearTimeout(timerRef.current)
-      }
-
-      if (destinationControllerRef.current) {
-        destinationControllerRef.current.abort();
-      }
-
-      // Create a new AbortController for the current request
-      const controller = new AbortController();
-      destinationControllerRef.current = controller;
-      timerRef.current = setTimeout(() => { fetchSuggestions(destination, "destination", destinationControllerRef.current)}, 500)
-      return () => { clearTimeout(timerRef.current)}   
-   } 
-   }, [destination])
+  useEffect(() => {
+    if (destination) debounceFetchSuggestions(destination, 'destination', destinationControllerRef);
+  }, [destination]);
 
   
    useEffect(() => {
@@ -128,24 +105,14 @@ const UserHome = () => {
    }, [ride, socket]);
 
 
-  useGSAP(() => {
-    if (locationSearchPanel) {
-      gsap.to(locationSearchPanelRef.current, {
-        height: "65%",
-        opacity: 1,
-        display: "block",
-        duration: 0.5,
-        ease: "power3.out",
-      });
-    } else {
-      gsap.to(locationSearchPanelRef.current, {
-        height: 0,
-        opacity: 0,
-        display: "none",
-        duration: 0.5,
-        ease: "power3.in",
-      });
-    }
+   useGSAP(() => {
+    gsap.to(locationSearchPanelRef.current, {
+      height: locationSearchPanel ? "65%" : 0,
+      opacity: locationSearchPanel ? 1 : 0,
+      display: locationSearchPanel ? "block" : "none",
+      duration: 0.5,
+      ease: "power3.out",
+    });
   }, [locationSearchPanel]);
 
   return (
@@ -204,8 +171,8 @@ const UserHome = () => {
           </div>
         </div>
 
-        <div className="flex flex-col justify-end absolute visible md:hidden top-0 h-screen w-full">
-          <div className="h-[35%] p-6 bg-white relative flex flex-col justify-center">
+        <div className="flex flex-col justify-end absolute visible md:hidden top-0 h-[110%] w-full ">
+          <div className="h-[35%] p-6 bg-white relative flex flex-col justify-center -mb-2 ">
             <h5
               onClick={() => toggleLocationSearchPanel(false)}
               className={`absolute ${
