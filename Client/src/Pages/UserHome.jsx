@@ -11,7 +11,6 @@ import { BASE_URL } from "../constants";
 import axios from 'axios';
 import LocationTracking from "../Components/LocationTracking";
 import { addFareAndTripLocations} from "../utils/rideInfoForUserSlice";
-// import { updateCache } from "../utils/suggestionsSlice";
 import {useWebSocketContext} from '../Context/WebSocketContext'
 
 const UserHome = () => {

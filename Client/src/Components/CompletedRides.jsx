@@ -1,35 +1,36 @@
 import React from 'react';
+import { FaMapMarkerAlt, FaCarSide, FaCheckCircle } from 'react-icons/fa';
 
 const CompletedRides = ({ rides = [], role }) => {
   return (
-    <div className="space-y-4">
+    <div className="space-y-6 max-w-4xl mx-auto">
       {rides.length > 0 ? (
         rides.map((ride) => (
           <div
             key={ride._id}
-            className="bg-white rounded-lg p-4 border border-gray-200 hover:bg-gray-50 transition duration-300"
+            className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-transform transform hover:scale-[1.02]"
           >
-            {/* Ride Details */}
-            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+            <div className="p-6 flex flex-col md:flex-row items-start md:items-center gap-6 border-l-4 border-blue-500">
+              
               {/* Ride Information */}
-              <div className="flex-1">
-                <p className="text-lg font-semibold text-gray-800">
-                  <span className="text-blue-600">From:</span> {ride.pickup}
-                </p>
-                <p className="text-lg font-semibold text-gray-800">
-                  <span className="text-green-600">To:</span> {ride.destination}
-                </p>
-                <p className="text-gray-600 mt-1">
-                  <strong>Fare:</strong> ₹{ride.fare}
-                </p>
-                <p className="text-gray-600">
+              <div className="flex-1 space-y-2">
+                <div className="flex items-center gap-2 text-blue-600 font-medium">
+                  <FaMapMarkerAlt />
+                  <span>From:</span>
+                  <span className="text-gray-800 font-semibold">{ride.pickup}</span>
+                </div>
+                <div className="flex items-center gap-2 text-green-600 font-medium">
+                  <FaMapMarkerAlt />
+                  <span>To:</span>
+                  <span className="text-gray-800 font-semibold">{ride.destination}</span>
+                </div>
+                <p className="text-gray-700 mt-2"><strong>Fare:</strong> ₹{ride.fare}</p>
+                <p className="text-gray-700">
                   <strong>Status:</strong>{' '}
                   <span
-                    className={`${
-                      ride.status === 'completed'
-                        ? 'text-green-600'
-                        : 'text-yellow-600'
-                    } font-medium`}
+                    className={`font-medium ${
+                      ride.status === 'completed' ? 'text-green-600' : 'text-yellow-600'
+                    }`}
                   >
                     {ride.status}
                   </span>
@@ -45,15 +46,15 @@ const CompletedRides = ({ rides = [], role }) => {
                       : ride.user?.profilePic
                   }
                   alt="Profile"
-                  className="w-16 h-16 rounded-full object-cover border-2 border-blue-400"
+                  className="w-20 h-20 rounded-full object-cover border-4 border-blue-400 shadow-md"
                 />
                 <div>
-                  <p className="font-medium text-gray-800">
+                  <p className="text-lg font-semibold text-gray-800">
                     {role === 'rider'
                       ? `${ride.driver?.fullName?.firstName} ${ride.driver?.fullName?.lastName}`
                       : `${ride.user?.firstName} ${ride.user?.lastName}`}
                   </p>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-sm text-gray-600">
                     {role === 'rider'
                       ? `Vehicle: ${ride.driver?.vehicleDetails?.type} (${ride.driver?.vehicleDetails?.plateNumber})`
                       : ride.user?.emailId}
@@ -64,7 +65,7 @@ const CompletedRides = ({ rides = [], role }) => {
           </div>
         ))
       ) : (
-        <p className="text-gray-600 text-center">No rides available.</p>
+        <p className="text-gray-600 text-center text-lg">No rides available.</p>
       )}
     </div>
   );

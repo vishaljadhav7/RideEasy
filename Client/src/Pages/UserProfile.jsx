@@ -17,7 +17,6 @@ const RiderProfile = () => {
       });
 
       setAllBookedRides(res?.data.data);
-  
     } catch (error) {
       console.error(error);
     }
@@ -28,53 +27,35 @@ const RiderProfile = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        {/* Profile Section */}
-        <div className="bg-white shadow-lg rounded-lg p-6 lg:col-span-1">
-          <div className="flex flex-col items-center text-center space-y-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-white p-6">
+      <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-xl bg-white">
+
+        <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-8 text-white rounded-t-2xl">
+          <div className="flex items-center space-x-6">
             <img
               src={rider?.profilePic || 'https://via.placeholder.com/150'}
               alt="Profile"
-              className="w-40 h-40 rounded-full border-4 border-blue-500 object-cover shadow-md"
+              className="w-32 h-32 rounded-full border-4 border-white shadow-md object-cover"
             />
-            <h2 className="text-2xl font-bold text-gray-800">
-              {rider?.firstName} {rider?.lastName}
-            </h2>
-            <p className="text-gray-600">{rider?.emailId}</p>
-            <button className="bg-blue-600 text-white py-2 px-5 rounded-md hover:bg-blue-700 transition duration-300">
-              Edit Profile
-            </button>
-          </div>
-        </div>
-
-        {/* Details Section */}
-        <div className="lg:col-span-2 bg-white shadow-lg rounded-lg p-6">
-          <h3 className="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">Rider Details</h3>
-          <div className="space-y-2 text-gray-600">
-            <p>
-              <strong>Name:</strong> {rider?.firstName} {rider?.lastName}
-            </p>
-            <p>
-              <strong>Email:</strong> {rider?.emailId}
-            </p>
-            <p>
-              <strong>Account Created:</strong>{' '}
-              {new Date(rider?.createdAt).toLocaleDateString()}
-            </p>
-            <p>
-              <strong>Last Updated:</strong>{' '}
-              {new Date(rider?.updatedAt).toLocaleDateString()}
-            </p>
+            <div>
+              <h2 className="text-3xl font-bold">
+                {rider?.firstName} {rider?.lastName}
+              </h2>
+              <p className="text-sm opacity-80">{rider?.emailId}</p>
+              <p className="mt-2">Account Created: {new Date(rider?.createdAt).toLocaleDateString()}</p>
+              <p>Last Updated: {new Date(rider?.updatedAt).toLocaleDateString()}</p>
+              <button className="mt-4 bg-white text-blue-600 px-4 py-2 rounded-md font-semibold hover:bg-gray-200 transition">
+                Edit Profile
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Booked Rides Section */}
-        <div className="lg:col-span-3 bg-white shadow-lg rounded-lg p-6 mt-4">
-          <h3 className="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">Booked Rides</h3>
+        <div className="p-6 bg-gray-50">
+          <h3 className="text-xl font-semibold text-gray-800 mb-4">Booked Rides</h3>
           {allBookedRides.length > 0 ? (
-            <CompletedRides rides={allBookedRides} />
+            <CompletedRides rides={allBookedRides} role="user"/>
           ) : (
             <p className="text-gray-600">No booked rides available.</p>
           )}
